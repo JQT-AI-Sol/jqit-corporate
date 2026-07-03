@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { getNewsList } from "@/lib/microcms";
 import { siteConfig } from "@/lib/site-config";
 
+// output: export（GitHub Pages）でも生成できるよう明示
+export const dynamic = "force-static";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
   const news = await getNewsList({ limit: 100 });
