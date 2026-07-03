@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -13,6 +14,7 @@ const businesses = [
     tags: ["受託開発（SI）", "SES", "インフラ", "QA・第三者検証"],
     image: "/business-it.png",
     alt: "コードを書くエンジニアの手元",
+    href: "/business/it-solutions",
   },
   {
     no: "02",
@@ -22,6 +24,7 @@ const businesses = [
     tags: ["生成AI導入支援", "RAG・チャットボット", "AIエージェント開発", "AI人材育成"],
     image: "/business-ai.png",
     alt: "AIダッシュボードを前に議論するメンバー",
+    href: "/business/ai-solutions",
   },
 ];
 
@@ -84,6 +87,18 @@ export function BusinessSection() {
                     </span>
                   ))}
                 </div>
+                <Link
+                  href={b.href}
+                  className="group mt-7 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+                >
+                  詳しく見る
+                  <span
+                    aria-hidden
+                    className="transition-transform duration-300 group-hover:translate-x-1.5"
+                  >
+                    →
+                  </span>
+                </Link>
               </div>
             </FadeIn>
           ))}

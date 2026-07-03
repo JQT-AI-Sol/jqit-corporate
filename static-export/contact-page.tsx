@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { StaticContactForm } from "@/components/contact/StaticContactForm";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -7,7 +8,8 @@ import { siteConfig } from "@/lib/site-config";
 
 /**
  * 静的エクスポート（GitHub Pages）用のお問い合わせページ。
- * Server Actions が使えないため、フォームの代わりに直接連絡先を案内する。
+ * Server Actions が使えないため、既存HPの Contact Form 7 に直接送信する
+ * クライアントフォーム（StaticContactForm）を使う。
  * CI（scripts/prepare-static-export.mjs）が app/contact/page.tsx をこれで置き換える。
  */
 export const metadata: Metadata = {
@@ -32,28 +34,11 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 items-start gap-12 min-[1024px]:grid-cols-[1.5fr_1fr] min-[1024px]:gap-16">
             <FadeIn>
               <p className="mb-9 text-[15px] leading-[2.05] text-body">
-                サービス・採用・協業など、JQITへのお問い合わせはお電話にてお願いいたします。担当者が内容を確認のうえご対応いたします。
+                サービス・採用・協業など、JQITへのお問い合わせは下記フォームよりお願いいたします。
+                <span className="text-brand">*</span>{" "}
+                は必須項目です。担当者より2〜3営業日以内にご連絡いたします。
               </p>
-              <div className="border border-line bg-cream px-8 py-9">
-                <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-brand">
-                  Preview Environment
-                </p>
-                <p className="text-[14px] leading-[2] text-body">
-                  こちらはプレビュー環境のため、お問い合わせフォームは無効化されています。本番環境では専用フォームをご利用いただけます。お急ぎの場合は右記（モバイルでは下記）のお電話にてご連絡ください。
-                </p>
-                <p className="mt-6 flex items-baseline gap-4">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
-                    Tel
-                  </span>
-                  <a
-                    href={siteConfig.telHref}
-                    className="font-en text-[26px] font-semibold tracking-[0.02em] text-ink transition-colors hover:text-brand"
-                  >
-                    {siteConfig.tel}
-                  </a>
-                </p>
-                <p className="mt-1.5 text-[12.5px] text-muted">{siteConfig.businessHours}</p>
-              </div>
+              <StaticContactForm />
             </FadeIn>
             <FadeIn className="border border-line bg-cream px-8 py-9">
               <Kicker className="mb-6">Direct</Kicker>

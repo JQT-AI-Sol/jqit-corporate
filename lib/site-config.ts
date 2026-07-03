@@ -103,8 +103,8 @@ export const footerNav: { head: string; links: FooterLink[] }[] = [
   {
     head: "Business",
     links: [
-      { label: "ITソリューション事業", href: "/#business" },
-      { label: "AIソリューション事業", href: "/#business" },
+      { label: "ITソリューション事業", href: "/business/it-solutions" },
+      { label: "AIソリューション事業", href: "/business/ai-solutions" },
       { label: "NOVA（製品サイト）", href: siteConfig.links.nova, external: true },
       { label: "パートナー", href: "/#partner" },
     ],
