@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -148,6 +149,18 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
+            <Link
+              href="/corporate-vision"
+              className="group mt-8 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+            >
+              ビジョンと戦略を詳しく見る
+              <span
+                aria-hidden
+                className="transition-transform duration-300 group-hover:translate-x-1.5"
+              >
+                →
+              </span>
+            </Link>
           </FadeIn>
         </Container>
       </section>

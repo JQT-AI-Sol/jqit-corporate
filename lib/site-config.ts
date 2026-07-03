@@ -94,8 +94,10 @@ export const footerNav: { head: string; links: FooterLink[] }[] = [
     links: [
       { label: "会社情報", href: "/about" },
       { label: "代表メッセージ", href: "/about#message" },
+      { label: "ビジョンと戦略", href: "/corporate-vision" },
       { label: "サステナビリティ", href: "/#sustainability" },
       { label: "ニュース", href: "/news" },
+      { label: "情報セキュリティ基本方針", href: "/security-policy" },
     ],
   },
   {
