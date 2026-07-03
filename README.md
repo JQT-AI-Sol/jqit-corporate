@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JQIT コーポレートサイト
 
-## Getting Started
+Next.js 16（App Router / Turbopack）+ TypeScript + Tailwind CSS v4 のコーポレートサイト。
+デザインは claude.ai/design プロジェクト「JQIT コーポレートサイト制作」を原本とし、
+フルゴシック（Noto Sans JP + Inter + JetBrains Mono、ロゴのみ Anton）のモダンテック路線。
 
-First, run the development server:
+## 開発
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev    # http://localhost:3000
+npm run build  # 本番ビルド（型チェック含む）
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 環境変数
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`.env.local.example` をコピーして `.env.local` を作成。**未設定でも全ページ動作します**
+（ニュースはモックデータ、お問い合わせはサーバーログ記録にフォールバック）。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| 変数 | 用途 |
+|---|---|
+| `MICROCMS_SERVICE_DOMAIN` / `MICROCMS_API_KEY` | ニュース配信（microCMS） |
+| `RESEND_API_KEY` / `CONTACT_TO` / `CONTACT_FROM` | お問い合わせメール送信（Resend） |
 
-## Learn More
+### microCMS スキーマ（エンドポイント: `news`）
 
-To learn more about Next.js, take a look at the following resources:
+| フィールドID | 種類 |
+|---|---|
+| `title` | テキストフィールド |
+| `date` | 日時 |
+| `category` | セレクト（お知らせ / プレス / 採用 / イベント） |
+| `body` | リッチエディタ |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 構成
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `app/` — ページ（トップ / about / contact / news / news/[id]）+ SEO（sitemap / robots / not-found）
+- `components/ui/` — デザインシステムプリミティブ（Button / Kicker / FadeIn / CountUp / TechBackdrop 等）
+- `components/layout/` — SiteHeader / SiteFooter / PageHeader
+- `components/home/` — トップページの9セクション
+- `lib/site-config.ts` — **外部URL・連絡先・会社情報の集約**（既存HP jqit.co.jp 由来の実データ反映済み）
+- `lib/microcms.ts` — CMSクライアント（sanitize-html でサニタイズ、未接続時モックフォールバック）
+- `public/jqit-logo.png` / `app/icon.png` / `public/nova-product.png` — 既存HPから流用した実アセット
 
-## Deploy on Vercel
+## TODO
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] microCMS サービス作成・APIキー設定
+- [ ] Resend 接続（お問い合わせメール送信）
+- [ ] 写真（ヒーロー / 代表）を `ImagePlaceholder` から `next/image` に差し替え
+- [ ] プライバシーポリシーページ作成（現在フッター等のリンクは `#`）
+- [ ] 新採用サイト公開後、`siteConfig.links.recruit` を差し替え（現在は jqit.co.jp/recruit/）
+- [ ] 本番デプロイ（現行 jqit.co.jp との切り替え計画）

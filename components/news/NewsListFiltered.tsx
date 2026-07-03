@@ -1,0 +1,76 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+
+type Item = { id: string; title: string; date: string; category: string };
+
+/** microCMS のセレクトフィールドと同じ並び順でタブを出す */
+const CATEGORY_ORDER = ["お知らせ", "プレス", "採用", "イベント"];
+const ALL = "すべて";
+
+export function NewsListFiltered({ items }: { items: Item[] }) {
+  const [active, setActive] = useState(ALL);
+  const tabs = [ALL, ...CATEGORY_ORDER.filter((c) => items.some((n) => n.category === c))];
+  const shown = active === ALL ? items : items.filter((n) => n.category === active);
+
+  return (
+    <>
+      <div
+        role="tablist"
+        aria-label="カテゴリで絞り込み"
+        className="flex flex-wrap gap-x-8 gap-y-1 border-b border-line"
+      >
+        {tabs.map((t) => {
+          const selected = t === active;
+          return (
+            <button
+              key={t}
+              type="button"
+              role="tab"
+              aria-selected={selected}
+              onClick={() => setActive(t)}
+              className={`-mb-px border-b-2 pb-3 pt-1 font-mono text-[13px] tracking-[0.1em] transition-colors ${
+                selected
+                  ? "border-brand font-semibold text-ink"
+                  : "border-transparent text-muted hover:text-ink"
+              }`}
+            >
+              {t}
+            </button>
+          );
+        })}
+      </div>
+      <div>
+        {shown.map((n) => (
+          <Link
+            key={n.id}
+            href={`/news/${n.id}`}
+            className="grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-2.5 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:grid-cols-[130px_110px_1fr_auto] min-[720px]:gap-6 min-[720px]:py-[22px]"
+          >
+            <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
+              {n.date.replaceAll("-", ".")}
+            </span>
+            <span className="justify-self-start rounded-card border border-brand px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-brand">
+              {n.category}
+            </span>
+            <span className="col-span-3 text-[15px] leading-[1.7] text-ink min-[720px]:col-span-1">
+              {n.title}
+            </span>
+            <span
+              aria-hidden
+              className="hidden font-mono text-sm text-[#c9c6c0] min-[720px]:block"
+            >
+              →
+            </span>
+          </Link>
+        ))}
+        {shown.length === 0 && (
+          <p className="py-16 text-center text-sm text-muted">
+            該当するニュースはありません。
+          </p>
+        )}
+      </div>
+    </>
+  );
+}

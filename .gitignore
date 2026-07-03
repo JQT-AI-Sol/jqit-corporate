@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code session files
+/.claude/
+
+# design reference materials (third-party screenshots)
+/docs/

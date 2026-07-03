@@ -1,26 +1,179 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ==========================================================================
+   JQIT Corporate — デザイントークン（C案: フルゴシック・モダンテック）
+   白基調 × 赤 #e60012 アクセント × 1px罫線。影は使わない。
+   ========================================================================== */
+
+@theme {
+  --color-brand: #e60012;
+  --color-brand-dark: #b3000e;
+  --color-ink: #14140f;
+  --color-body: #2a2a28;
+  --color-muted: #6b6b67;
+  --color-paper: #ffffff;
+  --color-cream: #faf9f7;
+  --color-line: #e7e5e0;
+
+  --font-sans: var(--font-noto-sans-jp), var(--font-inter), system-ui, sans-serif;
+  --font-en: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-anton: var(--font-anton-face), sans-serif;
+
+  --radius-card: 2px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  overflow-x: hidden;
+}
+
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* 見出し用: 約物詰め（YakuHanJP相当をOpenType機能で） */
+.palt {
+  font-feature-settings: "palt";
+}
+
+/* スクロールリビール（FadeIn コンポーネントが制御） */
+.reveal {
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 0.84, 0.44, 1),
+    transform 0.7s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.reveal[data-hidden="true"] {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+/* ヒーローの入場アニメーション（1度だけ、下からフェード） */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 0.8s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+}
+
+/* TechBackdrop: 微細ドットグリッド */
+.tech-dots {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-ink) 14%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* TechBackdrop: 走査線（低速・上品に） */
+@keyframes tech-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.tech-scan {
+  animation: tech-scan 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ニュース本文（microCMS リッチエディタHTML）のタイポグラフィ */
+.news-body {
+  font-size: 15.5px;
+  line-height: 2.1;
+  color: var(--color-body);
+}
+
+.news-body p {
+  margin-block: 1.4em;
+}
+
+.news-body h2 {
+  margin-block: 2.2em 0.9em;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  font-feature-settings: "palt";
+}
+
+.news-body h3 {
+  margin-block: 1.8em 0.8em;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-ink);
+  font-feature-settings: "palt";
+}
+
+.news-body ul,
+.news-body ol {
+  margin-block: 1.4em;
+  padding-inline-start: 1.5em;
+}
+
+.news-body li {
+  margin-block: 0.4em;
+}
+
+.news-body a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.news-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-block: 1.8em;
+}
+
+.news-body blockquote {
+  margin-block: 1.8em;
+  border-left: 2px solid var(--color-brand);
+  padding-left: 1.2em;
+  color: var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    transition: none;
+  }
+
+  .reveal[data-hidden="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .tech-scan {
+    animation: none;
+  }
+
+  .hero-rise {
+    animation: none;
+    opacity: 1;
+  }
 }
