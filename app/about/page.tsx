@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { companySubNav, SubNav } from "@/components/layout/SubNav";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -70,6 +71,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHeader title="会社情報" en="About" />
+      <SubNav group="Company" items={companySubNav} />
 
       {/* MESSAGE — 代表写真の実素材が入るまでは、写真は「雰囲気を示す全幅バンド」として
           メッセージから切り離す（無人写真がメッセージの人物代替に見える誤読を避ける） */}

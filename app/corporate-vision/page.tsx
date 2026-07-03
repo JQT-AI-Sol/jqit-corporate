@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { companySubNav, SubNav } from "@/components/layout/SubNav";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -89,6 +90,7 @@ export default function CorporateVisionPage() {
   return (
     <>
       <PageHeader title="ビジョンと戦略" en="Vision" />
+      <SubNav group="Company" items={companySubNav} />
 
       {/* 企業理念 */}
       <section className="bg-paper py-20 min-[720px]:py-[92px]">

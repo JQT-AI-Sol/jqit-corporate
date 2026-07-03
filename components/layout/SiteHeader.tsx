@@ -35,6 +35,10 @@ export function SiteHeader() {
     !href.startsWith("/#") &&
     (pathname === href || pathname.startsWith(`${href}/`));
 
+  /** 親項目のアクティブ判定: 自身 or 配下ページのいずれかが現在地 */
+  const isParentActive = (item: (typeof globalNav)[number]) =>
+    isActive(item.href) || (item.children?.some((c) => isActive(c.href)) ?? false);
+
   const close = useCallback(() => {
     setOpen(false);
     toggleRef.current?.focus();
@@ -116,22 +120,58 @@ export function SiteHeader() {
                 </span>
               </a>
             ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="relative flex flex-col items-center gap-[3px] py-1.5 transition-opacity hover:opacity-70"
-              >
-                <span className="text-[13px] font-semibold text-ink">{item.label}</span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
-                  {item.en}
-                </span>
-                {isActive(item.href) && (
-                  <span
-                    aria-hidden
-                    className="absolute -bottom-px left-1/2 h-0.5 w-[18px] -translate-x-1/2 bg-brand"
-                  />
+              <div key={item.label} className="group relative">
+                <Link
+                  href={item.href}
+                  className="relative flex flex-col items-center gap-[3px] py-1.5 transition-opacity hover:opacity-70"
+                >
+                  <span className="text-[13px] font-semibold text-ink">
+                    {item.label}
+                    {item.children && (
+                      <span
+                        aria-hidden
+                        className="ml-1 inline-block font-mono text-[9px] text-muted transition-transform duration-200 group-hover:translate-y-[1px]"
+                      >
+                        ▾
+                      </span>
+                    )}
+                  </span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                    {item.en}
+                  </span>
+                  {isParentActive(item) && (
+                    <span
+                      aria-hidden
+                      className="absolute -bottom-px left-1/2 h-0.5 w-[18px] -translate-x-1/2 bg-brand"
+                    />
+                  )}
+                </Link>
+
+                {/* ドロップダウン（hover / キーボードフォーカスで表示） */}
+                {item.children && (
+                  <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2.5 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                    <div className="min-w-[248px] border border-line border-t-2 border-t-brand bg-white py-2.5">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className={`group/dd flex items-center justify-between gap-4 px-5 py-[11px] text-[13px] font-semibold transition-colors hover:bg-cream hover:text-brand ${
+                            isActive(child.href) ? "text-brand" : "text-ink"
+                          }`}
+                        >
+                          {child.label}
+                          <span
+                            aria-hidden
+                            className="font-mono text-[11px] text-muted/40 transition-all duration-200 group-hover/dd:translate-x-0.5 group-hover/dd:text-brand"
+                          >
+                            →
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 )}
-              </Link>
+              </div>
             ),
           )}
         </nav>
@@ -193,8 +233,9 @@ export function SiteHeader() {
                 </span>
               </>
             );
-            const cls =
-              "flex items-baseline justify-between gap-3 border-b border-white/15 px-1 py-5";
+            const cls = `flex items-baseline justify-between gap-3 px-1 ${
+              item.children ? "pt-5 pb-3" : "border-b border-white/15 py-5"
+            }`;
             return item.external ? (
               <a
                 key={item.label}
@@ -207,9 +248,27 @@ export function SiteHeader() {
                 {inner}
               </a>
             ) : (
-              <Link key={item.label} href={item.href} className={cls} onClick={close}>
-                {inner}
-              </Link>
+              <div key={item.label} className={item.children ? "border-b border-white/15" : ""}>
+                <Link href={item.href} className={cls} onClick={close}>
+                  {inner}
+                </Link>
+                {/* 配下ページへの直リンク（常時展開） */}
+                {item.children && (
+                  <div className="flex flex-col gap-1 pb-5 pl-5">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={close}
+                        className="flex items-center gap-2.5 py-1.5 text-[14px] font-semibold text-white/70"
+                      >
+                        <span aria-hidden className="h-px w-3.5 bg-brand" />
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             );
           })}
           <Link

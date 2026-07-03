@@ -66,16 +66,40 @@ export const certificationBadges: CertificationBadge[] = [
   { label: "労働者派遣事業 派13-318536" },
 ];
 
+export type NavChild = {
+  label: string;
+  href: string;
+};
+
 export type NavItem = {
   label: string;
   en: string;
   href: string;
   external?: boolean;
+  /** ドロップダウン（PC）/ サブリンク（モバイル）に展開する配下ページ */
+  children?: NavChild[];
 };
 
 export const globalNav: NavItem[] = [
-  { label: "会社情報", en: "About", href: "/about" },
-  { label: "事業", en: "Business", href: "/#business" },
+  {
+    label: "会社情報",
+    en: "About",
+    href: "/about",
+    children: [
+      { label: "会社概要・代表メッセージ", href: "/about" },
+      { label: "ビジョンと戦略", href: "/corporate-vision" },
+      { label: "情報セキュリティ基本方針", href: "/security-policy" },
+    ],
+  },
+  {
+    label: "事業",
+    en: "Business",
+    href: "/#business",
+    children: [
+      { label: "ITソリューション事業", href: "/business/it-solutions" },
+      { label: "AIソリューション事業", href: "/business/ai-solutions" },
+    ],
+  },
   { label: "製品", en: "Product", href: "/#service" },
   { label: "サステナ", en: "Sustainability", href: "/#sustainability" },
   { label: "ニュース", en: "News", href: "/news" },

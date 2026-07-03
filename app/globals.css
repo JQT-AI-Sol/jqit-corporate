@@ -43,6 +43,12 @@ section[id] {
   font-feature-settings: "palt";
 }
 
+/* キーボードフォーカスもブランド色で（ブラウザ標準の青リングは白/赤/黒の画面で浮く） */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
 /* スクロールリビール（FadeIn コンポーネントが制御） */
 .reveal {
   transition:

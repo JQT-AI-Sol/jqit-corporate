@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { companySubNav, SubNav } from "@/components/layout/SubNav";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { siteConfig } from "@/lib/site-config";
@@ -85,6 +86,7 @@ export default function SecurityPolicyPage() {
   return (
     <>
       <PageHeader title="情報セキュリティ基本方針" en="Security Policy" />
+      <SubNav group="Company" items={companySubNav} />
       <section className="bg-paper pb-24 pt-14 min-[720px]:pt-16">
         <Container className="max-w-[860px]">
           <FadeIn>
