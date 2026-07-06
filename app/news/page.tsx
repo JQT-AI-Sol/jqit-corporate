@@ -8,7 +8,7 @@ import { getNewsList } from "@/lib/microcms";
 
 export const metadata: Metadata = {
   title: "ニュース",
-  description: "JQIT株式会社のお知らせ・プレスリリース・イベント情報の一覧です。",
+  description: "JQIT株式会社のお知らせ・イベント情報の一覧です。",
 };
 
 export const revalidate = 60;
@@ -31,7 +31,7 @@ export default async function NewsListPage() {
           )}
           <FadeIn className="mt-10 flex flex-wrap items-center justify-between gap-5 border border-line bg-cream px-7 py-6">
             <p className="text-sm leading-relaxed text-body">
-              取材・プレスリリースに関するお問い合わせはこちらから。
+              ニュース掲載内容に関するお問い合わせはこちらから。
             </p>
             <Link
               href="/contact"
