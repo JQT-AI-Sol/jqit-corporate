@@ -101,23 +101,36 @@ function normalize(item: MicroCMSNews): News {
   };
 }
 
+function isStarterSample(item: News): boolean {
+  const body = item.body ?? "";
+  return (
+    item.title.includes("（サンプル）") ||
+    body.includes("お知らせテンプレートから作成されました") ||
+    body.includes("APIプレビューを試そう")
+  );
+}
+
+async function fallbackNews(limit?: number): Promise<News[]> {
+  const { fallbackNews } = await import("./news-fallback");
+  return fallbackNews.slice(0, limit ?? fallbackNews.length);
+}
+
 export async function getNewsList(queries?: MicroCMSQueries): Promise<News[]> {
   if (!client) {
-    const { fallbackNews } = await import("./news-fallback");
-    return fallbackNews.slice(0, queries?.limit ?? fallbackNews.length);
+    return fallbackNews(queries?.limit);
   }
   try {
     const res = await client.getList<MicroCMSNews>({
       endpoint: "news",
       queries: { orders: "-date", ...queries },
     });
-    return res.contents.map(normalize);
+    const news = res.contents.map(normalize).filter((item) => !isStarterSample(item));
+    return news.length > 0 ? news : fallbackNews(queries?.limit);
   } catch (e) {
     if (!isNotFoundError(e)) {
       console.error("[microcms] ニュース一覧の取得に失敗。フォールバックを使用:", e);
     }
-    const { fallbackNews } = await import("./news-fallback");
-    return fallbackNews.slice(0, queries?.limit ?? fallbackNews.length);
+    return fallbackNews(queries?.limit);
   }
 }
 
@@ -131,7 +144,9 @@ export async function getNewsDetail(id: string): Promise<News | null> {
       endpoint: "news",
       contentId: id,
     });
-    return normalize(item);
+    const news = normalize(item);
+    if (isStarterSample(news)) return null;
+    return news;
   } catch (e) {
     // 404（未公開・削除済み）は正常系なのでログしない
     // 注: microcms-js-sdk はステータスを構造化して公開しないため、
