@@ -21,7 +21,8 @@ npm run lint
 | 変数 | 用途 |
 |---|---|
 | `MICROCMS_SERVICE_DOMAIN` / `MICROCMS_API_KEY` | ニュース配信（microCMS） |
-| `RESEND_API_KEY` / `CONTACT_TO` / `CONTACT_FROM` | お問い合わせメール送信（Resend） |
+| `RESEND_API_KEY` / `CONTACT_FROM` | お問い合わせメール送信（Resend） |
+| `CONTACT_TO` / `CONTACT_TO_SALES` / `CONTACT_TO_RECRUIT` | お問い合わせ種別ごとの送信先 |
 
 ### microCMS スキーマ（エンドポイント: `news`）
 

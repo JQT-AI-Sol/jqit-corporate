@@ -24,6 +24,20 @@ const schema = z.object({
   privacy: z.literal("on", { message: "プライバシーポリシーへの同意が必要です" }),
 });
 
+function getContactRecipients(category: (typeof contactCategories)[number]) {
+  const fallback = process.env.CONTACT_TO;
+  switch (category) {
+    case "サービスについて":
+    case "協業・パートナーについて":
+      return process.env.CONTACT_TO_SALES ?? fallback;
+    case "採用について":
+      return process.env.CONTACT_TO_RECRUIT ?? fallback;
+    case "取材・メディアについて":
+    case "その他":
+      return fallback;
+  }
+}
+
 export async function submitContact(
   _prev: ContactFormState,
   formData: FormData,
@@ -64,7 +78,7 @@ export async function submitContact(
   ].join("\n");
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO;
+  const to = getContactRecipients(data.category);
 
   if (apiKey && to) {
     try {
