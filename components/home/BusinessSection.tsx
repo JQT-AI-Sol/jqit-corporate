@@ -12,8 +12,8 @@ const businesses = [
     title: "ITソリューション事業",
     body: "システム構築の要件定義から運用保守まで。受託開発（SI）とSESにより、Web・業務システム開発、インフラ構築、QA・第三者検証をワンストップで提供します。",
     tags: ["受託開発（SI）", "SES", "インフラ", "QA・第三者検証"],
-    image: "/business-it.png",
-    alt: "コードを書くエンジニアの手元",
+    image: "/natural-tech-it.png",
+    alt: "自然光の入るオフィスでシステム設計を議論するエンジニア",
     href: "/business/it-solutions",
   },
   {
@@ -22,8 +22,8 @@ const businesses = [
     title: "AIソリューション事業",
     body: "生成AIの導入支援・コンサルティングからAIシステム開発まで。大規模言語モデルを中心に、企業のAI活用を全面的にサポートします。",
     tags: ["生成AI導入支援", "RAG・チャットボット", "AIエージェント開発", "AI人材育成"],
-    image: "/business-ai.png",
-    alt: "AIダッシュボードを前に議論するメンバー",
+    image: "/natural-tech-ai.png",
+    alt: "AIデータ可視化を前に分析するメンバー",
     href: "/business/ai-solutions",
   },
 ];
@@ -51,8 +51,8 @@ export function BusinessSection() {
                 <Image
                   src={b.image}
                   alt={b.alt}
-                  width={2400}
-                  height={1792}
+                  width={1448}
+                  height={1086}
                   sizes="(min-width: 900px) 50vw, 100vw"
                   className="h-auto w-full rounded-xl object-cover"
                 />

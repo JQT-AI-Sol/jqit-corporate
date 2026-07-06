@@ -62,7 +62,10 @@ export const certificationBadges: CertificationBadge[] = [
     label: "ISTQB® Gold パートナー",
     image: { src: "/badges/istqb-gold.png", width: 2063, height: 738 },
   },
-  { label: "2026年度 財界 BEST AI 100" },
+  {
+    label: "2026年度 財界 BEST AI 100",
+    image: { src: "/badges/zaikai-best-ai-100.png", width: 1500, height: 240 },
+  },
   { label: "労働者派遣事業 派13-318536" },
 ];
 
@@ -101,7 +104,6 @@ export const globalNav: NavItem[] = [
     ],
   },
   { label: "製品", en: "Product", href: "/#service" },
-  { label: "サステナ", en: "Sustainability", href: "/#sustainability" },
   { label: "ニュース", en: "News", href: "/news" },
   { label: "採用", en: "Recruit", href: siteConfig.links.recruit, external: true },
 ];
@@ -119,7 +121,6 @@ export const footerNav: { head: string; links: FooterLink[] }[] = [
       { label: "会社情報", href: "/about" },
       { label: "代表メッセージ", href: "/about#message" },
       { label: "ビジョンと戦略", href: "/corporate-vision" },
-      { label: "サステナビリティ", href: "/#sustainability" },
       { label: "ニュース", href: "/news" },
       { label: "情報セキュリティ基本方針", href: "/security-policy" },
     ],

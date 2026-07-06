@@ -116,9 +116,12 @@ export function SiteFooter() {
             © 2026 {siteConfig.nameEn} All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-xs text-muted transition-colors hover:text-brand">
+            <Link
+              href="/privacy-policy"
+              className="text-xs text-muted transition-colors hover:text-brand"
+            >
               プライバシーポリシー
-            </a>
+            </Link>
             <a href="#" className="text-xs text-muted transition-colors hover:text-brand">
               サイトマップ
             </a>

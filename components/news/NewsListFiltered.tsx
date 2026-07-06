@@ -1,9 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import type { MicroCMSImage } from "@/lib/microcms";
 
-type Item = { id: string; title: string; date: string; category: string };
+type Item = {
+  id: string;
+  title: string;
+  date: string;
+  category: string;
+  eyecatch?: MicroCMSImage;
+};
 
 /** microCMS のセレクトフィールドと同じ並び順でタブを出す */
 const CATEGORY_ORDER = ["お知らせ", "プレス", "採用", "イベント"];
@@ -46,8 +54,21 @@ export function NewsListFiltered({ items }: { items: Item[] }) {
           <Link
             key={n.id}
             href={`/news/${n.id}`}
-            className="grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-2.5 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:grid-cols-[130px_110px_1fr_auto] min-[720px]:gap-6 min-[720px]:py-[22px]"
+            className="group grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-3 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:grid-cols-[96px_130px_110px_1fr_auto] min-[720px]:gap-6 min-[720px]:py-[22px]"
           >
+            {n.eyecatch ? (
+              <span className="relative col-span-3 block aspect-[16/10] overflow-hidden bg-cream min-[720px]:col-span-1 min-[720px]:h-[58px] min-[720px]:w-[92px]">
+                <Image
+                  src={n.eyecatch.url}
+                  alt=""
+                  fill
+                  sizes="(min-width: 720px) 92px, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </span>
+            ) : (
+              <span className="hidden h-[58px] w-[92px] bg-cream min-[720px]:block" />
+            )}
             <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
               {n.date.replaceAll("-", ".")}
             </span>

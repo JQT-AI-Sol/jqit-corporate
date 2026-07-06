@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -42,8 +43,21 @@ export async function NewsSection() {
               <Link
                 key={n.id}
                 href={`/news/${n.id}`}
-                className="grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-2.5 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:grid-cols-[120px_104px_1fr_auto] min-[720px]:gap-5 min-[720px]:py-[22px]"
+                className="group grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-3 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:grid-cols-[84px_112px_96px_1fr_auto] min-[720px]:gap-5 min-[720px]:py-[22px]"
               >
+                {n.eyecatch ? (
+                  <span className="relative col-span-3 block aspect-[16/10] overflow-hidden bg-cream min-[720px]:col-span-1 min-[720px]:h-[52px] min-[720px]:w-[78px]">
+                    <Image
+                      src={n.eyecatch.url}
+                      alt=""
+                      fill
+                      sizes="(min-width: 720px) 78px, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </span>
+                ) : (
+                  <span className="hidden h-[52px] w-[78px] bg-cream min-[720px]:block" />
+                )}
                 <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
                   {formatNewsDate(n.date)}
                 </span>

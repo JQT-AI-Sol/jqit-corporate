@@ -315,7 +315,10 @@ export function StaticContactForm() {
             {...a11y("privacy")}
           />
           <span>
-            <Link href="#" className="text-brand underline underline-offset-2">
+            <Link
+              href="/privacy-policy"
+              className="text-brand underline underline-offset-2"
+            >
               プライバシーポリシー
             </Link>
             に同意のうえ送信します。

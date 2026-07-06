@@ -6,10 +6,10 @@ export function PurposeBand() {
   return (
     <section className="relative overflow-hidden">
       <Image
-        src="/office-wide.png"
-        alt="JQITのオフィスで働くメンバー"
-        width={1584}
-        height={672}
+        src="/natural-tech-wide.png"
+        alt="自然素材とテクノロジーが共存するJQITのオフィス"
+        width={1915}
+        height={821}
         sizes="100vw"
         className="h-[320px] w-full object-cover object-[32%_center] min-[720px]:h-[400px]"
       />

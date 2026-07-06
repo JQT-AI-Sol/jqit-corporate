@@ -118,10 +118,10 @@ export default function ItSolutionsPage() {
             </FadeIn>
             <FadeIn className="relative">
               <Image
-                src="/business-it.png"
-                alt="コードを書くエンジニアの手元"
-                width={2400}
-                height={1792}
+                src="/natural-tech-it.png"
+                alt="自然光の入るオフィスでシステム設計を議論するエンジニア"
+                width={1448}
+                height={1086}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
                 className="h-auto w-full rounded-xl object-cover"
@@ -325,8 +325,8 @@ export default function ItSolutionsPage() {
         en="AI Solutions"
         title="AIソリューション事業"
         href="/business/ai-solutions"
-        image="/business-ai.png"
-        alt="AIダッシュボードを前に議論するメンバー"
+        image="/natural-tech-ai.png"
+        alt="AIデータ可視化を前に分析するメンバー"
       />
 
       {/* CTA */}

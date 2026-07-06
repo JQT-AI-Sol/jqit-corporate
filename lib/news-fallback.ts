@@ -10,6 +10,11 @@ export const fallbackNews: News[] = [
     title: "コーポレートサイトをリニューアルしました",
     date: "2026-07-03",
     category: "お知らせ",
+    eyecatch: {
+      url: "/natural-tech-wide.png",
+      width: 1915,
+      height: 821,
+    },
     body: "<p>株式会社JQITは、コーポレートサイトを全面リニューアルしました。</p><p>事業内容や製品情報をより分かりやすくお届けするとともに、ニュースやSNSを通じて、JQITの「今」を継続的に発信してまいります。今後ともよろしくお願いいたします。</p>",
   },
   {
@@ -17,6 +22,23 @@ export const fallbackNews: News[] = [
     title: "社員総会を開催しました",
     date: "2026-04-15",
     category: "イベント",
+    eyecatch: {
+      url: "/natural-tech-team.png",
+      width: 1122,
+      height: 1402,
+    },
+    gallery: [
+      {
+        url: "/natural-tech-about.png",
+        width: 1672,
+        height: 941,
+      },
+      {
+        url: "/natural-tech-wide.png",
+        width: 1915,
+        height: 821,
+      },
+    ],
     body: "<p>2026年4月、全社員が集まる社員総会を開催しました。</p><p>事業方針の共有や表彰、チームを越えた交流を通じて、会社の目指す方向をあらためて全員で確認する機会となりました。</p>",
   },
   {
@@ -24,6 +46,11 @@ export const fallbackNews: News[] = [
     title: "社員交流イベントを開催しました",
     date: "2026-04-12",
     category: "イベント",
+    eyecatch: {
+      url: "/natural-tech-wide.png",
+      width: 1915,
+      height: 821,
+    },
     body: "<p>社員同士の交流を深めるイベントを開催しました。</p><p>普段は別々の現場で活躍するメンバーが一堂に会し、親睦を深めました。JQITでは、こうした交流の場を定期的に設けています。</p>",
   },
 ];

@@ -30,6 +30,8 @@ npm run lint
 | `title` | テキストフィールド |
 | `date` | 日時 |
 | `category` | セレクト（お知らせ / プレス / 採用 / イベント） |
+| `eyecatch` | 画像 |
+| `gallery` | 複数画像 |
 | `body` | リッチエディタ |
 
 ## 構成
@@ -44,9 +46,9 @@ npm run lint
 
 ## TODO
 
-- [ ] microCMS サービス作成・APIキー設定
+- [x] microCMS サービス作成・APIキー設定
 - [ ] Resend 接続（お問い合わせメール送信）
 - [ ] 写真（ヒーロー / 代表）を `ImagePlaceholder` から `next/image` に差し替え
-- [ ] プライバシーポリシーページ作成（現在フッター等のリンクは `#`）
+- [x] プライバシーポリシーページ作成
 - [ ] 新採用サイト公開後、`siteConfig.links.recruit` を差し替え（現在は jqit.co.jp/recruit/）
 - [ ] 本番デプロイ（現行 jqit.co.jp との切り替え計画）

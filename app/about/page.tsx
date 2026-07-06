@@ -64,7 +64,6 @@ const profile = [
     v: "2026年度 財界 BEST AI 100／ISTQB® Gold パートナー",
   },
   { k: "取引先銀行", v: "三井住友銀行、GMOあおぞらネット銀行" },
-  { k: "営業時間", v: siteConfig.businessHours },
 ];
 
 export default function AboutPage() {
@@ -78,12 +77,12 @@ export default function AboutPage() {
       <section id="message" className="bg-paper">
         <div className="relative overflow-hidden">
           <Image
-            src="/office-about.png"
-            alt="JQITオフィスのミーティングスペース"
-            width={928}
-            height={1152}
+            src="/natural-tech-about.png"
+            alt="自然光の入る空間で事業戦略を議論するJQITのチーム"
+            width={1672}
+            height={941}
             sizes="100vw"
-            className="h-[220px] w-full object-cover object-[center_60%] min-[720px]:h-[300px]"
+            className="h-[260px] w-full object-cover object-[58%_45%] min-[720px]:h-[360px]"
           />
           <div
             aria-hidden

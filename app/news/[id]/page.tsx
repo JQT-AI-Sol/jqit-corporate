@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
@@ -81,11 +82,47 @@ export default async function NewsDetailPage({ params }: Props) {
           <h1 className="palt border-b border-line pb-8 text-[36px] font-bold leading-[1.35] tracking-[-0.02em] text-ink min-[720px]:text-[44px]">
             {news.title}
           </h1>
+          {news.eyecatch && (
+            <div className="relative mt-10 aspect-[16/9] overflow-hidden bg-cream">
+              <Image
+                src={news.eyecatch.url}
+                alt={news.title}
+                fill
+                sizes="(min-width: 900px) 860px, 100vw"
+                className="object-cover"
+                priority
+              />
+            </div>
+          )}
           {/* 本文は microCMS 管理画面（社内編集者のみ）由来のリッチテキスト */}
           <div
             className="news-body mt-10"
             dangerouslySetInnerHTML={{ __html: news.body ?? "" }}
           />
+
+          {news.gallery && news.gallery.length > 0 && (
+            <div className="mt-12 border-t border-line pt-8">
+              <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
+                Gallery
+              </p>
+              <div className="grid grid-cols-1 gap-4 min-[640px]:grid-cols-2">
+                {news.gallery.map((image, index) => (
+                  <div
+                    key={`${image.url}-${index}`}
+                    className="relative aspect-[4/3] overflow-hidden bg-cream"
+                  >
+                    <Image
+                      src={image.url}
+                      alt={`${news.title} 写真 ${index + 1}`}
+                      fill
+                      sizes="(min-width: 900px) 420px, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="mt-14 flex flex-wrap items-center justify-between gap-x-8 gap-y-5 border-t border-line pt-8">
             <Link

@@ -16,8 +16,23 @@ const nextConfig: NextConfig = isStaticExport
       images: {
         loader: "custom",
         loaderFile: "./lib/static-image-loader.ts",
+        remotePatterns: [
+          {
+            protocol: "https",
+            hostname: "images.microcms-assets.io",
+          },
+        ],
       },
     }
-  : {};
+  : {
+      images: {
+        remotePatterns: [
+          {
+            protocol: "https",
+            hostname: "images.microcms-assets.io",
+          },
+        ],
+      },
+    };
 
 export default nextConfig;

@@ -6,24 +6,46 @@ import sanitizeHtml from "sanitize-html";
  * - title: テキストフィールド
  * - date: 日時
  * - category: セレクトフィールド（お知らせ / プレス / 採用 / イベント）
- * - body: リッチエディタ
+ * - eyecatch: 画像（一覧・詳細上部に表示）
+ * - gallery: 複数画像（イベント写真などに表示）
+ * - body: リッチエディタ（microCMS初期テンプレートの content も本文として扱う）
  */
 export type NewsCategory = "お知らせ" | "プレス" | "採用" | "イベント";
+
+export type MicroCMSImage = {
+  url: string;
+  width?: number;
+  height?: number;
+};
+
+type MicroCMSCategory =
+  | string
+  | string[]
+  | {
+      name?: string;
+      id?: string;
+    };
 
 export type News = {
   id: string;
   title: string;
   date: string;
   category: NewsCategory | string;
+  eyecatch?: MicroCMSImage;
+  gallery?: MicroCMSImage[];
   body?: string;
 };
 
 type MicroCMSNews = {
   id: string;
   title: string;
-  date: string;
-  category: string[] | string;
+  date?: string;
+  publishedAt?: string;
+  category?: MicroCMSCategory;
+  eyecatch?: MicroCMSImage;
+  gallery?: MicroCMSImage[];
   body?: string;
+  content?: string;
 };
 
 const serviceDomain = process.env.MICROCMS_SERVICE_DOMAIN;
@@ -34,6 +56,10 @@ const client =
 
 /** microCMS が接続済みかどうか（未接続時はフォールバックデータで動作） */
 export const isCmsConfigured = client !== null;
+
+function isNotFoundError(e: unknown): boolean {
+  return e instanceof Error && /\b404\b/.test(e.message);
+}
 
 /** リッチエディタ由来のHTMLをサーバー側でサニタイズ（CMSアカウント侵害時の多層防御） */
 function sanitizeBody(html: string | undefined): string | undefined {
@@ -57,16 +83,21 @@ function sanitizeBody(html: string | undefined): string | undefined {
 }
 
 function normalize(item: MicroCMSNews): News {
+  const category = Array.isArray(item.category)
+    ? (item.category[0] ?? "お知らせ")
+    : typeof item.category === "object" && item.category !== null
+      ? (item.category.name ?? "お知らせ")
+      : (item.category ?? "お知らせ");
+
   return {
     id: item.id,
     title: item.title,
     // 日時フィールドは ISO 文字列で返るため日付部分のみ使う
-    date: item.date?.slice(0, 10) ?? "",
-    // セレクトフィールドは配列で返る
-    category: Array.isArray(item.category)
-      ? (item.category[0] ?? "お知らせ")
-      : item.category,
-    body: sanitizeBody(item.body),
+    date: (item.date ?? item.publishedAt)?.slice(0, 10) ?? "",
+    category,
+    eyecatch: item.eyecatch,
+    gallery: item.gallery?.filter((image) => image.url),
+    body: sanitizeBody(item.body ?? item.content),
   };
 }
 
@@ -82,7 +113,9 @@ export async function getNewsList(queries?: MicroCMSQueries): Promise<News[]> {
     });
     return res.contents.map(normalize);
   } catch (e) {
-    console.error("[microcms] ニュース一覧の取得に失敗。フォールバックを使用:", e);
+    if (!isNotFoundError(e)) {
+      console.error("[microcms] ニュース一覧の取得に失敗。フォールバックを使用:", e);
+    }
     const { fallbackNews } = await import("./news-fallback");
     return fallbackNews.slice(0, queries?.limit ?? fallbackNews.length);
   }
@@ -103,7 +136,7 @@ export async function getNewsDetail(id: string): Promise<News | null> {
     // 404（未公開・削除済み）は正常系なのでログしない
     // 注: microcms-js-sdk はステータスを構造化して公開しないため、
     // "status: 404" のメッセージ形式（SDK v3系）を単語境界付きで判定する
-    if (!(e instanceof Error && /\b404\b/.test(e.message))) {
+    if (!isNotFoundError(e)) {
       console.error(`[microcms] ニュース詳細(${id})の取得に失敗:`, e);
     }
     const { fallbackNews } = await import("./news-fallback");
