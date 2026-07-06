@@ -21,7 +21,7 @@ export function Hero() {
         {/* 左からの白グラデーションで見出しの可読性を担保 */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-white via-white/60 via-28% to-transparent to-52%"
+          className="absolute inset-0 bg-gradient-to-r from-white from-0% via-white/95 via-18% via-white/60 via-36% to-transparent to-68%"
         />
       </div>
 
