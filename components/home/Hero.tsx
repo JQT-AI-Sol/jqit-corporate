@@ -5,16 +5,17 @@ import { Kicker } from "@/components/ui/Kicker";
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-line bg-white">
-      {/* Natural Systems Tech KV。自然素材・植栽・AIデータ表現を白グラデーションで本文側になじませる */}
+      {/* ダイヤ型コラージュKV（白背景・赤アクセント）。高さ基準で右端に固定し、
+          収まらない左側（KV内の白余白）は画面外へ逃がす */}
       <div className="absolute inset-y-0 right-0 hidden min-[1280px]:block">
-        <div className="relative h-full" style={{ aspectRatio: "1672 / 941" }}>
+        <div className="relative h-full" style={{ aspectRatio: "1792 / 1008" }}>
           <Image
-            src="/natural-tech-hero.png"
+            src="/hero-collage.png"
             alt=""
             fill
             priority
             sizes="(min-width: 900px) 70vw, 100vw"
-            className="object-cover object-center"
+            className="object-cover object-right"
           />
         </div>
         {/* 左からの白グラデーションで見出しの可読性を担保 */}
@@ -62,16 +63,17 @@ export function Hero() {
         </div>
       </div>
 
-      {/* モバイル: テキスト下に自然×テックのKVをそのまま見せる */}
+      {/* モバイル: テキスト下にコラージュ。帯状クロップだとダイヤ形状が中途半端に切れるため、
+          天地は切らず「KV右側のコラージュ部分」を横方向のみトリミングして原寸比で見せる */}
       <div className="relative overflow-hidden min-[1280px]:hidden">
         <Image
-          src="/natural-tech-hero.png"
-          alt="自然光の入るオフィスでAIデータを活用して議論するJQITのチーム"
-          width={1672}
-          height={941}
+          src="/hero-collage.png"
+          alt="JQITのメンバーとオフィスの写真コラージュ"
+          width={1792}
+          height={1008}
           priority
           sizes="100vw"
-          className="h-auto w-full"
+          className="ml-[-39%] h-auto w-[139%] max-w-none min-[600px]:ml-[-18%] min-[600px]:w-[118%]"
         />
       </div>
     </section>
