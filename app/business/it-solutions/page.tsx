@@ -274,7 +274,11 @@ export default function ItSolutionsPage() {
             {steps.map((s, i) => (
               <div
                 key={s.no}
-                className="brand-line-card relative bg-white px-6 py-7 min-[1024px]:px-5"
+                className={`brand-line-card relative bg-white px-6 py-7 min-[1024px]:px-5 ${
+                  i === steps.length - 1
+                    ? "min-[720px]:col-span-2 min-[1024px]:col-span-1"
+                    : ""
+                }`}
               >
                 <div className="flex items-baseline justify-between">
                   <span className="brand-line-no font-mono text-[13px] font-semibold text-brand">

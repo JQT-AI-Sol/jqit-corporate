@@ -35,7 +35,7 @@ export function SubNav({ group, items }: { group: string; items: SubNavItem[] })
       aria-label={`${group}のページ一覧`}
       className="border-b border-line bg-white"
     >
-      <div className="mx-auto flex w-full max-w-[1160px] items-stretch gap-1 overflow-x-auto px-6">
+      <div className="mx-auto flex w-full max-w-[1160px] flex-wrap items-stretch gap-1 px-4 min-[720px]:flex-nowrap min-[720px]:overflow-x-auto min-[720px]:px-6">
         <span className="mr-4 hidden items-center self-stretch font-mono text-[10px] uppercase tracking-[0.2em] text-muted min-[720px]:flex">
           {group}
         </span>
@@ -46,7 +46,7 @@ export function SubNav({ group, items }: { group: string; items: SubNavItem[] })
               key={item.href}
               href={item.href}
               aria-current={active ? "page" : undefined}
-              className={`relative whitespace-nowrap px-4 py-[17px] text-[13px] font-semibold transition-colors ${
+              className={`relative whitespace-nowrap px-3 py-3.5 text-[12px] font-semibold transition-colors min-[720px]:px-4 min-[720px]:py-[17px] min-[720px]:text-[13px] ${
                 active ? "text-ink" : "text-muted hover:text-brand"
               }`}
             >
@@ -54,7 +54,7 @@ export function SubNav({ group, items }: { group: string; items: SubNavItem[] })
               {active && (
                 <span
                   aria-hidden
-                  className="absolute inset-x-4 bottom-0 h-0.5 bg-brand"
+                  className="absolute inset-x-3 bottom-0 h-0.5 bg-brand min-[720px]:inset-x-4"
                 />
               )}
             </Link>

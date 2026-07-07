@@ -14,7 +14,7 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "AIソリューション事業",
   description:
-    "株式会社JQITのAIソリューション事業。生成AI導入支援・コンサルティング、AI人材育成、AIシステム・アプリケーション開発で企業のAI活用を支援します。",
+    "株式会社JQITのAIソリューション事業。AIシステムの受託開発、AI導入支援・AI推進コンサル、AIサービス開発で企業のAI活用を支援します。",
 };
 
 /** イントロ下の実データストリップ（すべて実在情報） */
@@ -24,46 +24,54 @@ const facts = [
   { label: "Product", value: "NOVA", note: "SES管理システム" },
 ];
 
-/** 提供サービス（既存HPの実コンテンツ） */
+/** 提供サービス */
 const services = [
   {
     no: "01",
-    en: "Consulting",
-    title: "生成AI導入支援・コンサルティング",
-    lead: "事業内容やご要望に応じた独自プロンプトの制作をはじめ、豊富なプロンプト開発実績をもとに、企業のAI活用を全面的にサポートします。",
+    en: "AI Development",
+    title: "AIシステムの受託開発事業",
+    lead: "生成AIやAIエージェントを組み込んだ業務システム・アプリケーションを、要件整理から設計・開発・運用まで一気通貫で開発します。",
     items: [
       {
-        head: "プロンプトエンジニアリング",
-        body: "事業内容やご要望に応じて独自プロンプトを制作。豊富なプロンプト開発実績をもとに、AI活用を全面的にサポートします。",
+        head: "AIシステム・アプリケーション開発",
+        body: "チャットボット、RAG、AIエージェント、社内業務アプリなど、実務で使えるAIシステムを開発します。",
+      },
+      {
+        head: "独自データ活用・RAG構築",
+        body: "社内文書や業務データを活用し、検索・回答・判断支援に使えるRAGシステムを構築します。",
       },
     ],
   },
   {
     no: "02",
-    en: "Education",
-    title: "AI人材育成・カリキュラム実施",
-    lead: "独自のAIカリキュラムによる研修・セミナーで、生成AIを体系的に熟知した人材の育成を支援します。",
+    en: "AI Enablement",
+    title: "AI導入支援・AI推進コンサル事業",
+    lead: "AIエージェントの導入支援を中心に、業務自動化・効率化を内製化して実現していくための伴走支援を行います。",
     items: [
       {
-        head: "独自AIカリキュラムによる研修・セミナー",
-        body: "プロンプトからRAG、ハルシネーションやセキュリティ対策まで、生成AIを体系的に熟知した人材の育成を支援します。",
+        head: "AIエージェント導入支援",
+        body: "業務フローに合わせてAIエージェントの活用領域を設計し、導入・検証・定着まで伴走します。",
+      },
+      {
+        head: "業務自動化・効率化の内製化支援",
+        body: "現場が自走して改善を続けられるよう、業務整理、活用ルール、運用設計、社内展開まで支援します。",
       },
     ],
-    tags: ["プロンプト", "RAG", "ハルシネーション対策", "セキュリティ対策"],
+    tags: ["AIエージェント", "業務自動化", "内製化支援", "AI推進体制"],
   },
   {
     no: "03",
-    en: "Development",
-    title: "AIシステム・アプリケーション開発",
-    lead: "生成AIを組み込んだシステム・アプリケーションを開発。独自データを活かすRAGから自律的なAIエージェントまで対応します。",
+    en: "AI Product",
+    title: "AIサービス開発",
+    lead: "NOVAをはじめとしたAIサービスの企画・開発を通じて、現場の生産性を高めるプロダクトを継続的に生み出します。",
     items: [
       {
-        head: "チャットボット・RAG",
-        body: "生成AIを活用するためのシステム開発。独自データや最新情報を学習したRAGシステムを構築します。",
+        head: "NOVA",
+        body: "SES営業のAIマッチングと一元管理を実現する、当社開発のAIプロダクトです。",
       },
       {
-        head: "AIエージェント",
-        body: "自律的にタスクを実行するAIエージェントを開発します。",
+        head: "AIサービス企画・開発",
+        body: "自社で得た業務知見とAI開発力をもとに、新しいAIサービスを企画・検証・開発します。",
       },
     ],
   },
@@ -85,15 +93,15 @@ export default function AiSolutionsPage() {
             <FadeIn>
               <Kicker className="mb-5">AI Solutions</Kicker>
               <h2 className="palt text-[28px] font-bold leading-[1.45] tracking-[-0.02em] text-ink min-[720px]:text-[38px]">
-                導入支援から人材育成、開発まで。
+                受託開発から導入推進、サービス開発まで。
                 <br />
                 <span className="text-brand">AI活用</span>を、全面支援。
               </h2>
               <p className="mt-7 max-w-[520px] text-[15px] leading-[2.1] text-body">
-                生成AI導入支援・コンサルティング、AI人材育成・カリキュラム実施、AIシステム・アプリケーション開発の3つの領域で、企業のAI活用を支援します。大規模言語モデルを中心に、導入の伴走から自社開発まで一貫して対応します。
+                AIシステムの受託開発、AI導入支援・AI推進コンサル、AIサービス開発の3つの領域で、企業のAI活用を支援します。大規模言語モデルやAIエージェントを中心に、導入の伴走から自社サービス開発まで一貫して対応します。
               </p>
               <div className="mt-7 flex flex-wrap gap-2">
-                {["生成AI導入支援", "プロンプトエンジニアリング", "RAG", "AIエージェント", "AI人材育成"].map(
+                {["AI受託開発", "AIエージェント導入", "業務自動化", "内製化支援", "NOVA"].map(
                   (t) => (
                     <span
                       key={t}
@@ -161,7 +169,7 @@ export default function AiSolutionsPage() {
                 <span className="text-brand">3つの領域</span>で、AI活用を支える。
               </>
             }
-            lead="導入の入口から、人の育成、システムの実装まで。企業のAI活用を段階に合わせて支援します。"
+            lead="AIシステムの受託開発、AI導入・推進の伴走、自社AIサービスの開発。企業のAI活用を実装と運用の両面から支援します。"
             className="mb-4"
           />
           <div>
@@ -252,7 +260,7 @@ export default function AiSolutionsPage() {
                     <p className="palt mt-1 text-[13.5px] font-bold">{f}</p>
                   </div>
                 ))}
-                <div className="hidden items-center bg-ink px-4 py-3.5 min-[600px]:flex">
+                <div className="flex min-h-[64px] items-center bg-ink px-4 py-3.5">
                   <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
                     All in One
                   </p>
