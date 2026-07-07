@@ -48,6 +48,55 @@ type MicroCMSNews = {
   content?: string;
 };
 
+const defaultNewsMedia: Record<
+  string,
+  {
+    eyecatch?: MicroCMSImage;
+    gallery?: MicroCMSImage[];
+  }
+> = {
+  "site-renewal-2026": {
+    eyecatch: {
+      url: "/natural-tech-wide.webp",
+      width: 1915,
+      height: 821,
+    },
+  },
+  "soukai-202604": {
+    eyecatch: {
+      url: "/news/soukai-202604.jpg",
+      width: 1600,
+      height: 1200,
+    },
+    gallery: [
+      {
+        url: "/news/soukai-202604.jpg",
+        width: 1600,
+        height: 1200,
+      },
+      {
+        url: "/news/kouryu-202604.jpg",
+        width: 1600,
+        height: 1200,
+      },
+    ],
+  },
+  "kouryu-202604": {
+    eyecatch: {
+      url: "/news/kouryu-202604.jpg",
+      width: 1600,
+      height: 1200,
+    },
+  },
+  "iso27001-isms-20260306": {
+    eyecatch: {
+      url: "/badges/isms-iso27001.png",
+      width: 3300,
+      height: 1279,
+    },
+  },
+};
+
 const serviceDomain = process.env.MICROCMS_SERVICE_DOMAIN;
 const apiKey = process.env.MICROCMS_API_KEY;
 
@@ -82,12 +131,43 @@ function sanitizeBody(html: string | undefined): string | undefined {
   });
 }
 
+function extractImagesFromHtml(html: string | undefined): MicroCMSImage[] {
+  if (!html) return [];
+
+  const images: MicroCMSImage[] = [];
+  const imgPattern = /<img\b[^>]*>/gi;
+  const attrPattern = /\s(src|width|height)=["']([^"']+)["']/gi;
+
+  for (const imgTag of html.match(imgPattern) ?? []) {
+    const attrs: Record<string, string> = {};
+    attrPattern.lastIndex = 0;
+
+    for (const match of imgTag.matchAll(attrPattern)) {
+      attrs[match[1]] = match[2];
+    }
+
+    if (attrs.src) {
+      images.push({
+        url: attrs.src,
+        width: attrs.width ? Number(attrs.width) : undefined,
+        height: attrs.height ? Number(attrs.height) : undefined,
+      });
+    }
+  }
+
+  return images;
+}
+
 function normalize(item: MicroCMSNews): News {
   const category = Array.isArray(item.category)
     ? (item.category[0] ?? "お知らせ")
     : typeof item.category === "object" && item.category !== null
       ? (item.category.name ?? "お知らせ")
       : (item.category ?? "お知らせ");
+  const defaultMedia = defaultNewsMedia[item.id];
+  const gallery = item.gallery?.filter((image) => image.url);
+  const rawBody = item.body ?? item.content;
+  const bodyImages = extractImagesFromHtml(rawBody);
 
   return {
     id: item.id,
@@ -95,9 +175,14 @@ function normalize(item: MicroCMSNews): News {
     // 日時フィールドは ISO 文字列で返るため日付部分のみ使う
     date: (item.date ?? item.publishedAt)?.slice(0, 10) ?? "",
     category,
-    eyecatch: item.eyecatch,
-    gallery: item.gallery?.filter((image) => image.url),
-    body: sanitizeBody(item.body ?? item.content),
+    eyecatch: item.eyecatch ?? bodyImages[0] ?? defaultMedia?.eyecatch,
+    gallery:
+      gallery && gallery.length > 0
+        ? gallery
+        : bodyImages.length > 0
+          ? undefined
+          : defaultMedia?.gallery,
+    body: sanitizeBody(rawBody),
   };
 }
 
@@ -124,7 +209,10 @@ export async function getNewsList(queries?: MicroCMSQueries): Promise<News[]> {
       endpoint: "news",
       queries: { orders: "-date", ...queries },
     });
-    const news = res.contents.map(normalize).filter((item) => !isStarterSample(item));
+    const news = res.contents
+      .map(normalize)
+      .filter((item) => !isStarterSample(item))
+      .sort((a, b) => b.date.localeCompare(a.date));
     return news.length > 0 ? news : fallbackNews(queries?.limit);
   } catch (e) {
     if (!isNotFoundError(e)) {

@@ -13,13 +13,18 @@ type Item = {
   eyecatch?: MicroCMSImage;
 };
 
-/** microCMS のセレクトフィールドと同じ並び順でタブを出す */
-const CATEGORY_ORDER = ["お知らせ", "プレス", "採用", "イベント"];
 const ALL = "すべて";
+
+function isBadgeImage(src: string): boolean {
+  return src.startsWith("/badges/");
+}
 
 export function NewsListFiltered({ items }: { items: Item[] }) {
   const [active, setActive] = useState(ALL);
-  const tabs = [ALL, ...CATEGORY_ORDER.filter((c) => items.some((n) => n.category === c))];
+  const categories = Array.from(
+    new Set(items.map((n) => n.category).filter((category) => category.trim() !== "")),
+  );
+  const tabs = [ALL, ...categories];
   const shown = active === ALL ? items : items.filter((n) => n.category === active);
 
   return (
@@ -63,7 +68,9 @@ export function NewsListFiltered({ items }: { items: Item[] }) {
                   alt=""
                   fill
                   sizes="(min-width: 720px) 92px, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className={`transition-transform duration-500 group-hover:scale-105 ${
+                    isBadgeImage(n.eyecatch.url) ? "object-contain p-2" : "object-cover"
+                  }`}
                 />
               </span>
             ) : (

@@ -10,6 +10,10 @@ export const revalidate = 60;
 
 type Props = { params: Promise<{ id: string }> };
 
+function isBadgeImage(src: string): boolean {
+  return src.startsWith("/badges/");
+}
+
 /** ビルド時に既知の記事を事前生成（未知IDは通常ビルドではISRで都度生成） */
 export async function generateStaticParams() {
   const news = await getNewsList({ limit: 100 });
@@ -89,7 +93,7 @@ export default async function NewsDetailPage({ params }: Props) {
                 alt={news.title}
                 fill
                 sizes="(min-width: 900px) 860px, 100vw"
-                className="object-cover"
+                className={isBadgeImage(news.eyecatch.url) ? "object-contain p-10" : "object-cover"}
                 priority
               />
             </div>

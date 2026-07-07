@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cms:sync-news-images": "node scripts/sync-microcms-news-images.mjs"
   },
   "dependencies": {
     "microcms-js-sdk": "^3.4.0",

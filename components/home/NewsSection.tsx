@@ -6,6 +6,10 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { formatNewsDate, getNewsList } from "@/lib/microcms";
 
+function isBadgeImage(src: string): boolean {
+  return src.startsWith("/badges/");
+}
+
 export async function NewsSection() {
   const news = await getNewsList({ limit: 4 });
 
@@ -52,7 +56,9 @@ export async function NewsSection() {
                       alt=""
                       fill
                       sizes="(min-width: 720px) 78px, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className={`transition-transform duration-500 group-hover:scale-105 ${
+                        isBadgeImage(n.eyecatch.url) ? "object-contain p-2" : "object-cover"
+                      }`}
                     />
                   </span>
                 ) : (

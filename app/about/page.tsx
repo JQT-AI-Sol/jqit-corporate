@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { companySubNav, SubNav } from "@/components/layout/SubNav";
 import { Button } from "@/components/ui/Button";
@@ -15,33 +14,6 @@ export const metadata: Metadata = {
   description:
     "株式会社JQITの会社情報。企業理念「挑戦と革新で、顧客の未来を切り拓く。」のもと、ITソリューション事業とAIソリューション事業を展開しています。",
 };
-
-const philosophy = [
-  {
-    en: "Purpose",
-    title: "成長機会の最大化と社会への貢献",
-    body: "デジタル技術を通じて、お客様と社会に新しい価値を生み、持続可能な未来に貢献します。",
-  },
-  {
-    en: "Mission",
-    title: "課題の“本質”を捉える伴走者",
-    body: "表面的な要望の先にある本質的な課題に向き合い、お客様と共に解決まで走り切ります。",
-  },
-  {
-    en: "Vision",
-    title: "“プロ”としての自律性とオーナーシップ",
-    body: "一人ひとりがプロフェッショナルとして自律的に考え、仕事に責任と誇りを持ちます。",
-  },
-];
-
-const values = [
-  "顧客中心",
-  "デジタル化社会への貢献",
-  "技術探求と挑戦",
-  "学びと自己実現",
-  "利他の精神",
-  "人的資本を育てる文化",
-];
 
 const profile = [
   { k: "会社名", v: `${siteConfig.name}（${siteConfig.nameEn}）` },
@@ -72,8 +44,7 @@ export default function AboutPage() {
       <PageHeader title="会社情報" en="About" />
       <SubNav group="Company" items={companySubNav} />
 
-      {/* MESSAGE — 代表写真の実素材が入るまでは、写真は「雰囲気を示す全幅バンド」として
-          メッセージから切り離す（無人写真がメッセージの人物代替に見える誤読を避ける） */}
+      {/* MESSAGE — 代表写真は署名横の小さなアイコンに留め、メインビジュアルは企業イメージとして扱う */}
       <section id="message" className="bg-paper">
         <div className="relative overflow-hidden">
           <Image
@@ -101,78 +72,27 @@ export default function AboutPage() {
                 私たちJQITは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。表面的な要望に応えるだけでなく、その先にある課題の本質を捉え、解決まで伴走する。システム開発からAI活用まで、変化を恐れず挑戦と革新を続けることで、お客様と社会の未来を切り拓いてまいります。
               </p>
             </div>
-            <p className="mt-9 flex items-baseline gap-3.5">
-              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-                代表取締役社長
-              </span>
-              <span className="palt text-xl font-bold text-ink">{siteConfig.ceo}</span>
-            </p>
-          </FadeIn>
-        </Container>
-      </section>
-
-      {/* PHILOSOPHY & VALUES */}
-      <section className="border-t border-line bg-cream py-20 min-[720px]:py-[88px]">
-        <Container>
-          <SectionHead
-            kicker="Philosophy"
-            title={
-              <>
-                私たちが大切にする<span className="text-brand">価値観</span>
-              </>
-            }
-            className="mb-11"
-          />
-          <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[900px]:grid-cols-3">
-            {philosophy.map((p) => (
-              <div key={p.en} className="ethos-card bg-white px-8 py-9">
-                <p className="mb-4 font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-brand">
-                  {p.en}
-                </p>
-                <h3 className="ethos-card-label palt text-[20px] font-bold leading-[1.5] text-ink">
-                  {p.title}
-                </h3>
-                <p className="mt-3.5 text-sm leading-[1.95] text-muted">{p.body}</p>
-              </div>
-            ))}
-          </FadeIn>
-          <FadeIn className="mt-10">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-              6 Values — 行動指針
-            </p>
-            <div className="grid grid-cols-1 gap-px border border-line bg-line min-[600px]:grid-cols-2 min-[900px]:grid-cols-3">
-              {values.map((v, i) => (
-                <div
-                  key={v}
-                  className="ethos-value flex items-baseline gap-4 bg-white px-6 py-5"
-                >
-                  <span className="ethos-value-no font-mono text-[12px] font-semibold text-brand">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="ethos-value-label palt text-[15px] font-bold text-ink">
-                    {v}
-                  </span>
-                </div>
-              ))}
+            <div className="mt-10 flex items-center gap-6">
+              <Image
+                src="/representative-yamada.png"
+                alt={`${siteConfig.ceo}の顔写真`}
+                width={96}
+                height={96}
+                className="h-[96px] w-[96px] rounded-full border border-line bg-cream object-cover object-[50%_28%] shadow-[0_16px_34px_rgba(15,15,15,0.11)]"
+              />
+              <p className="flex flex-col gap-1 min-[520px]:flex-row min-[520px]:items-baseline min-[520px]:gap-3.5">
+                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
+                  代表取締役社長
+                </span>
+                <span className="palt text-xl font-bold text-ink">{siteConfig.ceo}</span>
+              </p>
             </div>
-            <Link
-              href="/corporate-vision"
-              className="group mt-8 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
-            >
-              ビジョンと戦略を詳しく見る
-              <span
-                aria-hidden
-                className="transition-transform duration-300 group-hover:translate-x-1.5"
-              >
-                →
-              </span>
-            </Link>
           </FadeIn>
         </Container>
       </section>
 
       {/* COMPANY PROFILE */}
-      <section className="bg-paper py-20 min-[720px]:py-[92px]">
+      <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
         <Container>
           <SectionHead kicker="Company Profile" title="会社概要" className="mb-10" />
           <FadeIn className="border-t border-ink">
