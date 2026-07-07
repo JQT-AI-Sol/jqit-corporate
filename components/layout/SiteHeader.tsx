@@ -27,6 +27,7 @@ function BrandLogo() {
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const panelRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -43,6 +44,18 @@ export function SiteHeader() {
     setOpen(false);
     toggleRef.current?.focus();
   }, []);
+
+  const closeDropdown = useCallback(() => {
+    setActiveDropdown(null);
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeDropdown();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [closeDropdown]);
 
   // モバイルメニュー展開中: 背景スクロールロック + Escape で閉じる + フォーカストラップ
   useEffect(() => {
@@ -120,9 +133,19 @@ export function SiteHeader() {
                 </span>
               </a>
             ) : (
-              <div key={item.label} className="group relative">
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => item.children && setActiveDropdown(item.label)}
+                onMouseLeave={closeDropdown}
+                onFocus={() => item.children && setActiveDropdown(item.label)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget)) closeDropdown();
+                }}
+              >
                 <Link
                   href={item.href}
+                  onClick={closeDropdown}
                   className="relative flex flex-col items-center gap-[3px] py-1.5 transition-opacity hover:opacity-70"
                 >
                   <span className="text-[13px] font-semibold text-ink">
@@ -130,7 +153,9 @@ export function SiteHeader() {
                     {item.children && (
                       <span
                         aria-hidden
-                        className="ml-1 inline-block font-mono text-[9px] text-muted transition-transform duration-200 group-hover:translate-y-[1px]"
+                        className={`ml-1 inline-block font-mono text-[9px] text-muted transition-transform duration-200 ${
+                          activeDropdown === item.label ? "translate-y-[1px]" : ""
+                        }`}
                       >
                         ▾
                       </span>
@@ -149,12 +174,19 @@ export function SiteHeader() {
 
                 {/* ドロップダウン（hover / キーボードフォーカスで表示） */}
                 {item.children && (
-                  <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2.5 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <div
+                    className={`absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2.5 transition-all duration-200 ${
+                      activeDropdown === item.label
+                        ? "visible opacity-100"
+                        : "invisible opacity-0"
+                    }`}
+                  >
                     <div className="min-w-[248px] border border-line border-t-2 border-t-brand bg-white py-2.5">
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
                           href={child.href}
+                          onClick={closeDropdown}
                           className={`group/dd flex items-center justify-between gap-4 px-5 py-[11px] text-[13px] font-semibold transition-colors hover:bg-cream hover:text-brand ${
                             isActive(child.href) ? "text-brand" : "text-ink"
                           }`}
