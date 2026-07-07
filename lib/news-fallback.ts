@@ -11,7 +11,7 @@ export const fallbackNews: News[] = [
     date: "2026-07-03",
     category: "お知らせ",
     eyecatch: {
-      url: "/natural-tech-wide.png",
+      url: "/natural-tech-wide.webp",
       width: 1915,
       height: 821,
     },
@@ -23,18 +23,18 @@ export const fallbackNews: News[] = [
     date: "2026-04-15",
     category: "イベント",
     eyecatch: {
-      url: "/natural-tech-team.png",
+      url: "/natural-tech-team.webp",
       width: 1122,
       height: 1402,
     },
     gallery: [
       {
-        url: "/natural-tech-about.png",
+        url: "/natural-tech-about.webp",
         width: 1672,
         height: 941,
       },
       {
-        url: "/natural-tech-wide.png",
+        url: "/natural-tech-wide.webp",
         width: 1915,
         height: 821,
       },
@@ -47,7 +47,7 @@ export const fallbackNews: News[] = [
     date: "2026-04-12",
     category: "イベント",
     eyecatch: {
-      url: "/natural-tech-wide.png",
+      url: "/natural-tech-wide.webp",
       width: 1915,
       height: 821,
     },

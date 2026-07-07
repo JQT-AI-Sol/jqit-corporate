@@ -118,7 +118,7 @@ export default function ItSolutionsPage() {
             </FadeIn>
             <FadeIn className="relative">
               <Image
-                src="/natural-tech-it.png"
+                src="/natural-tech-it.webp"
                 alt="自然光の入るオフィスでシステム設計を議論するエンジニア"
                 width={1448}
                 height={1086}
@@ -177,19 +177,22 @@ export default function ItSolutionsPage() {
           />
           <div className="grid grid-cols-1 gap-px border border-line bg-line min-[900px]:grid-cols-2">
             {models.map((m) => (
-              <FadeIn key={m.no} className="bg-white px-8 py-10 min-[720px]:px-10 min-[720px]:py-12">
+              <FadeIn
+                key={m.no}
+                className="brand-line-card bg-white px-8 py-10 min-[720px]:px-10 min-[720px]:py-12"
+              >
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
                       {m.en}
                     </p>
-                    <h3 className="palt mt-3 text-[24px] font-bold leading-[1.4] tracking-[-0.02em] text-ink min-[720px]:text-[28px]">
+                    <h3 className="brand-line-label palt mt-3 text-[24px] font-bold leading-[1.4] tracking-[-0.02em] text-ink min-[720px]:text-[28px]">
                       {m.title}
                     </h3>
                   </div>
                   <span
                     aria-hidden
-                    className="font-anton text-[48px] leading-none text-ink/10 min-[720px]:text-[60px]"
+                    className="brand-line-no font-anton text-[48px] leading-none text-ink/10 min-[720px]:text-[60px]"
                   >
                     {m.no}
                   </span>
@@ -225,11 +228,11 @@ export default function ItSolutionsPage() {
             {fields.map((f) => (
               <FadeIn
                 key={f.no}
-                className="group grid grid-cols-1 gap-4 border-b border-line py-9 first:border-t min-[900px]:grid-cols-[120px_1.1fr_1.3fr] min-[900px]:gap-10 min-[900px]:py-11"
+                className="brand-line-row group grid grid-cols-1 gap-4 border-b border-line py-9 first:border-t min-[900px]:grid-cols-[120px_1.1fr_1.3fr] min-[900px]:gap-10 min-[900px]:py-11"
               >
                 <span
                   aria-hidden
-                  className="font-anton text-[44px] leading-[0.9] text-ink/15 transition-colors duration-300 group-hover:text-brand min-[900px]:text-[56px]"
+                  className="brand-line-no font-anton text-[44px] leading-[0.9] text-ink/15 transition-colors duration-300 group-hover:text-brand min-[900px]:text-[56px]"
                 >
                   {f.no}
                 </span>
@@ -237,7 +240,7 @@ export default function ItSolutionsPage() {
                   <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                     {f.en}
                   </p>
-                  <h3 className="palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
+                  <h3 className="brand-line-label palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
                     {f.title}
                   </h3>
                   <div className="mt-4 flex flex-wrap gap-2">
@@ -269,9 +272,12 @@ export default function ItSolutionsPage() {
           />
           <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2 min-[1024px]:grid-cols-5">
             {steps.map((s, i) => (
-              <div key={s.no} className="relative bg-white px-6 py-7 min-[1024px]:px-5">
+              <div
+                key={s.no}
+                className="brand-line-card relative bg-white px-6 py-7 min-[1024px]:px-5"
+              >
                 <div className="flex items-baseline justify-between">
-                  <span className="font-mono text-[13px] font-semibold text-brand">
+                  <span className="brand-line-no font-mono text-[13px] font-semibold text-brand">
                     {s.no}
                   </span>
                   {/* 矢印は横並び（5カラム）時のみ。縦積みでは視線の流れと矛盾するため隠す */}
@@ -284,7 +290,9 @@ export default function ItSolutionsPage() {
                     </span>
                   )}
                 </div>
-                <h3 className="palt mt-3.5 text-[16px] font-bold text-ink">{s.title}</h3>
+                <h3 className="brand-line-label palt mt-3.5 text-[16px] font-bold text-ink">
+                  {s.title}
+                </h3>
                 <p className="mt-2.5 text-[12.5px] leading-[1.9] text-muted">{s.body}</p>
               </div>
             ))}
@@ -325,7 +333,7 @@ export default function ItSolutionsPage() {
         en="AI Solutions"
         title="AIソリューション事業"
         href="/business/ai-solutions"
-        image="/natural-tech-ai.png"
+        image="/natural-tech-ai.webp"
         alt="AIデータ可視化を前に分析するメンバー"
       />
 

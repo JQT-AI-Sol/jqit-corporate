@@ -77,7 +77,7 @@ export default function AboutPage() {
       <section id="message" className="bg-paper">
         <div className="relative overflow-hidden">
           <Image
-            src="/natural-tech-about.png"
+            src="/natural-tech-about.webp"
             alt="自然光の入る空間で事業戦略を議論するJQITのチーム"
             width={1672}
             height={941}

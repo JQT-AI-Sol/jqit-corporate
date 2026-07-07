@@ -6,7 +6,7 @@ export function PurposeBand() {
   return (
     <section className="relative overflow-hidden">
       <Image
-        src="/natural-tech-wide.png"
+        src="/natural-tech-wide.webp"
         alt="自然素材とテクノロジーが共存するJQITのオフィス"
         width={1915}
         height={821}

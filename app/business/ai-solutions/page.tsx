@@ -107,7 +107,7 @@ export default function AiSolutionsPage() {
             </FadeIn>
             <FadeIn className="relative">
               <Image
-                src="/natural-tech-ai.png"
+                src="/natural-tech-ai.webp"
                 alt="AIデータ可視化を前に分析するメンバー"
                 width={1448}
                 height={1086}
@@ -168,11 +168,11 @@ export default function AiSolutionsPage() {
             {services.map((s) => (
               <FadeIn
                 key={s.no}
-                className="group grid grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[120px_1.05fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
+                className="brand-line-row group grid grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[120px_1.05fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
               >
                 <span
                   aria-hidden
-                  className="font-anton text-[44px] leading-[0.9] text-ink/15 transition-colors duration-300 group-hover:text-brand min-[900px]:text-[56px]"
+                  className="brand-line-no font-anton text-[44px] leading-[0.9] text-ink/15 transition-colors duration-300 group-hover:text-brand min-[900px]:text-[56px]"
                 >
                   {s.no}
                 </span>
@@ -180,7 +180,7 @@ export default function AiSolutionsPage() {
                   <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                     {s.en}
                   </p>
-                  <h3 className="palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
+                  <h3 className="brand-line-label palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
                     {s.title}
                   </h3>
                   <p className="mt-4 text-[14px] leading-[2.05] text-body">{s.lead}</p>
@@ -203,8 +203,11 @@ export default function AiSolutionsPage() {
                   }`}
                 >
                   {s.items.map((item) => (
-                    <div key={item.head} className="bg-white px-6 py-6 min-[720px]:px-7">
-                      <h4 className="palt flex items-baseline gap-3 text-[15px] font-bold text-ink">
+                    <div
+                      key={item.head}
+                      className="brand-line-card bg-white px-6 py-6 min-[720px]:px-7"
+                    >
+                      <h4 className="brand-line-label palt flex items-baseline gap-3 text-[15px] font-bold text-ink">
                         <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
                         {item.head}
                       </h4>
@@ -281,7 +284,7 @@ export default function AiSolutionsPage() {
         en="IT Solutions"
         title="ITソリューション事業"
         href="/business/it-solutions"
-        image="/natural-tech-it.png"
+        image="/natural-tech-it.webp"
         alt="自然光の入るオフィスでシステム設計を議論するエンジニア"
       />
 
