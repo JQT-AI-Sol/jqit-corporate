@@ -107,11 +107,11 @@ export default function CorporateVisionPage() {
           </FadeIn>
           <FadeIn className="mt-12 grid grid-cols-1 gap-px border border-line bg-line min-[900px]:grid-cols-3">
             {philosophy.map((p) => (
-              <div key={p.en} className="bg-white px-8 py-9">
+              <div key={p.en} className="ethos-card bg-white px-8 py-9">
                 <p className="mb-4 font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-brand">
                   {p.en}
                 </p>
-                <h3 className="palt text-[20px] font-bold leading-[1.5] text-ink">
+                <h3 className="ethos-card-label palt text-[20px] font-bold leading-[1.5] text-ink">
                   {p.title}
                 </h3>
               </div>
@@ -135,11 +135,11 @@ export default function CorporateVisionPage() {
           />
           <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2 min-[1024px]:grid-cols-3">
             {values.map((v, i) => (
-              <div key={v.title} className="bg-white px-7 py-8">
-                <p className="mb-3.5 font-mono text-[13px] font-semibold text-brand">
+              <div key={v.title} className="ethos-card bg-white px-7 py-8">
+                <p className="ethos-value-no mb-3.5 font-mono text-[13px] font-semibold text-brand">
                   {String(i + 1).padStart(2, "0")}
                 </p>
-                <h3 className="palt text-[17px] font-bold leading-[1.6] text-ink">
+                <h3 className="ethos-card-label palt text-[17px] font-bold leading-[1.6] text-ink">
                   {v.title}
                 </h3>
                 <p className="mt-3 text-[13.5px] leading-[1.95] text-muted">{v.body}</p>

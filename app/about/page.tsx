@@ -125,11 +125,11 @@ export default function AboutPage() {
           />
           <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[900px]:grid-cols-3">
             {philosophy.map((p) => (
-              <div key={p.en} className="bg-white px-8 py-9">
+              <div key={p.en} className="ethos-card bg-white px-8 py-9">
                 <p className="mb-4 font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-brand">
                   {p.en}
                 </p>
-                <h3 className="palt text-[20px] font-bold leading-[1.5] text-ink">
+                <h3 className="ethos-card-label palt text-[20px] font-bold leading-[1.5] text-ink">
                   {p.title}
                 </h3>
                 <p className="mt-3.5 text-sm leading-[1.95] text-muted">{p.body}</p>
@@ -142,11 +142,16 @@ export default function AboutPage() {
             </p>
             <div className="grid grid-cols-1 gap-px border border-line bg-line min-[600px]:grid-cols-2 min-[900px]:grid-cols-3">
               {values.map((v, i) => (
-                <div key={v} className="flex items-baseline gap-4 bg-white px-6 py-5">
-                  <span className="font-mono text-[12px] font-semibold text-brand">
+                <div
+                  key={v}
+                  className="ethos-value flex items-baseline gap-4 bg-white px-6 py-5"
+                >
+                  <span className="ethos-value-no font-mono text-[12px] font-semibold text-brand">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="palt text-[15px] font-bold text-ink">{v}</span>
+                  <span className="ethos-value-label palt text-[15px] font-bold text-ink">
+                    {v}
+                  </span>
                 </div>
               ))}
             </div>

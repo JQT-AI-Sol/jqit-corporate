@@ -102,6 +102,58 @@ section[id] {
   animation: tech-scan 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
+/* Philosophy / values: 読むための静かなマイクロインタラクション */
+.ethos-card,
+.ethos-value {
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color 0.28s ease,
+    color 0.28s ease;
+}
+
+.ethos-card::before,
+.ethos-value::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--color-brand);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform 0.32s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.ethos-card-label,
+.ethos-value-label,
+.ethos-value-no {
+  transition:
+    color 0.28s ease,
+    transform 0.32s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+@media (hover: hover) {
+  .ethos-card:hover,
+  .ethos-value:hover {
+    background: var(--color-cream);
+  }
+
+  .ethos-card:hover::before,
+  .ethos-value:hover::before {
+    transform: scaleY(1);
+  }
+
+  .ethos-card:hover .ethos-card-label,
+  .ethos-value:hover .ethos-value-label {
+    transform: translateX(3px);
+  }
+
+  .ethos-card:hover .ethos-value-no,
+  .ethos-value:hover .ethos-value-no {
+    color: var(--color-brand-dark);
+  }
+}
+
 /* ニュース本文（microCMS リッチエディタHTML）のタイポグラフィ */
 .news-body {
   font-size: 15.5px;
@@ -196,5 +248,20 @@ section[id] {
   .hero-rise {
     animation: none;
     opacity: 1;
+  }
+
+  .ethos-card,
+  .ethos-value,
+  .ethos-card::before,
+  .ethos-value::before,
+  .ethos-card-label,
+  .ethos-value-label,
+  .ethos-value-no {
+    transition: none;
+  }
+
+  .ethos-card:hover .ethos-card-label,
+  .ethos-value:hover .ethos-value-label {
+    transform: none;
   }
 }
