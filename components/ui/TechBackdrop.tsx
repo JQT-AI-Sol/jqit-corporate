@@ -1,5 +1,5 @@
 /**
- * セクション背景の幾何学装飾（C案）。微細ドットグリッド＋罫線＋赤の走査線。
+ * セクション背景の幾何学装飾。微細ドットグリッド＋罫線＋赤の走査線。
  * position:relative + overflow:hidden の親の中に置く。
  */
 export function TechBackdrop() {
@@ -27,8 +27,6 @@ export function TechBackdrop() {
       <div className="absolute inset-x-0 top-0 h-0.5 overflow-hidden">
         <div className="tech-scan h-full w-1/3 bg-gradient-to-r from-transparent via-brand to-transparent" />
       </div>
-      {/* 赤スクエア（ブランドドット） */}
-      <div className="absolute right-[9%] top-16 hidden h-2 w-2 bg-brand md:block" />
     </div>
   );
 }

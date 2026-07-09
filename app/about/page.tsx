@@ -38,6 +38,25 @@ const profile = [
   { k: "取引先銀行", v: "三井住友銀行、GMOあおぞらネット銀行" },
 ];
 
+const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(
+  siteConfig.addressShort,
+)}&output=embed`;
+
+const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  siteConfig.addressShort,
+)}`;
+
+const accessRoutes = [
+  "東京メトロ銀座線・半蔵門線・副都心線「渋谷」駅 B3出口 徒歩2分",
+  "JR線「渋谷」駅 宮益坂口 徒歩4分",
+];
+
+const accessAddressLines = [
+  "〒150-0002",
+  "東京都渋谷区渋谷1-12-2",
+  "クロスオフィス渋谷609",
+];
+
 export default function AboutPage() {
   return (
     <>
@@ -105,6 +124,69 @@ export default function AboutPage() {
                 <p className="text-[15px] leading-[1.9] text-ink">{row.v}</p>
               </div>
             ))}
+          </FadeIn>
+        </Container>
+      </section>
+
+      {/* ACCESS */}
+      <section id="access" className="border-t border-line bg-cream py-20 min-[720px]:py-[92px]">
+        <Container>
+          <SectionHead kicker="Access" title="アクセス" className="mb-10" />
+          <FadeIn className="grid grid-cols-1 overflow-hidden border border-line bg-paper min-[900px]:grid-cols-[1.08fr_0.92fr]">
+            <div className="relative min-h-[320px] bg-white min-[720px]:min-h-[420px]">
+              <iframe
+                title="JQIT本社周辺のGoogle Map"
+                src={mapEmbedSrc}
+                className="absolute inset-0 h-full w-full border-0 grayscale-[15%]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </div>
+            <div className="flex flex-col justify-center border-t border-line p-8 min-[720px]:p-10 min-[900px]:border-l min-[900px]:border-t-0 min-[1040px]:p-12">
+              <Kicker className="mb-6">Office</Kicker>
+              <div className="space-y-8">
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
+                    Address
+                  </p>
+                  <p className="mt-3 text-[15px] font-semibold leading-[1.9] text-ink min-[720px]:text-[17px]">
+                    {accessAddressLines.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </p>
+                </div>
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
+                    Train
+                  </p>
+                  <ul className="mt-3 space-y-3 text-[14px] leading-[1.9] text-body min-[720px]:text-[15px]">
+                    {accessRoutes.map((route) => (
+                      <li key={route} className="flex gap-3">
+                        <span aria-hidden className="mt-[0.75em] h-1.5 w-1.5 shrink-0 bg-brand" />
+                        <span>{route}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <a
+                href={mapLink}
+                target="_blank"
+                rel="noreferrer"
+                className="group mt-9 inline-flex w-fit items-center gap-2.5 border-b border-ink pb-1 font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-brand hover:text-brand"
+              >
+                Google Map
+                <span
+                  aria-hidden
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </a>
+            </div>
           </FadeIn>
         </Container>
       </section>
