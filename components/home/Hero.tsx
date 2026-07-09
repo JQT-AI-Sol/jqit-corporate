@@ -10,7 +10,7 @@ export function Hero() {
       <div className="absolute inset-y-0 right-0 hidden min-[1280px]:block">
         <div className="relative h-full" style={{ aspectRatio: "1792 / 1008" }}>
           <Image
-            src="/hero-collage.png"
+            src="/hero-collage.webp"
             alt=""
             fill
             priority
@@ -67,7 +67,7 @@ export function Hero() {
           天地は切らず「KV右側のコラージュ部分」を横方向のみトリミングして原寸比で見せる */}
       <div className="relative overflow-hidden min-[1280px]:hidden">
         <Image
-          src="/hero-collage.png"
+          src="/hero-collage.webp"
           alt="JQITのメンバーとオフィスの写真コラージュ"
           width={1792}
           height={1008}
