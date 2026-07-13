@@ -33,7 +33,7 @@ export function ServiceSection() {
             <h2 className="palt text-[28px] font-bold leading-[1.4] tracking-[-0.02em] text-ink md:text-[38px]">
               SES営業を変える、
               <br />
-              <span className="text-brand">NOVA</span>。
+              <span className="text-brand">NOVA</span>
             </h2>
             <p className="mt-6 text-[15px] leading-[2.1] text-body">
               自社開発のSES営業効率化ツール。AIマッチングから契約書類の自動発行まで、SESビジネスの業務をワンストップで支えます。
