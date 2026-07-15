@@ -42,6 +42,7 @@ next-env.d.ts
 
 # claude code session files
 /.claude/
+/.worktrees/
 
 # design reference materials (third-party screenshots)
 /docs/
