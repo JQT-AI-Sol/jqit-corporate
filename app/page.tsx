@@ -1,6 +1,5 @@
 import { AboutSection } from "@/components/home/AboutSection";
 import { BusinessSection } from "@/components/home/BusinessSection";
-import { ContactCta } from "@/components/home/ContactCta";
 import { Hero } from "@/components/home/Hero";
 import { NewsSection } from "@/components/home/NewsSection";
 import { PartnerSection } from "@/components/home/PartnerSection";
@@ -22,7 +21,6 @@ export default function HomePage() {
       <PurposeBand />
       <TechCultureSection />
       <PartnerSection />
-      <ContactCta />
     </>
   );
 }

@@ -26,7 +26,12 @@ test("the global header retains desktop and mobile contact routes", () => {
   assert.equal(source.match(/href="\/contact"/g)?.length, 2);
 });
 
-test("the home page final section retains one contact route", () => {
-  const source = readFileSync("components/home/ContactCta.tsx", "utf8");
-  assert.equal(source.match(/href="\/contact"/g)?.length, 1);
+test("the home page omits the redundant contact section", () => {
+  const source = readFileSync("app/page.tsx", "utf8");
+  assert.doesNotMatch(source, /ContactCta/);
+});
+
+test("the corporate vision page ends without a redundant about CTA", () => {
+  const source = readFileSync("app/corporate-vision/page.tsx", "utf8");
+  assert.doesNotMatch(source, /JQITについて、もっと知る。/);
 });

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { companySubNav, SubNav } from "@/components/layout/SubNav";
-import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHead } from "@/components/ui/SectionHead";
@@ -211,19 +210,6 @@ export default function CorporateVisionPage() {
         </Container>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-line bg-paper py-16 min-[720px]:py-20">
-        <Container className="text-center">
-          <FadeIn>
-            <h2 className="palt text-[26px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[34px]">
-              JQITについて、もっと知る。
-            </h2>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button href="/about">会社情報を見る</Button>
-            </div>
-          </FadeIn>
-        </Container>
-      </section>
     </>
   );
 }

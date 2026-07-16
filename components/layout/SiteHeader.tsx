@@ -186,6 +186,8 @@ export function SiteHeader() {
                         <Link
                           key={child.href}
                           href={child.href}
+                          target={child.external ? "_blank" : undefined}
+                          rel={child.external ? "noopener noreferrer" : undefined}
                           onClick={closeDropdown}
                           className={`group/dd flex items-center justify-between gap-4 px-5 py-[11px] text-[13px] font-semibold transition-colors hover:bg-cream hover:text-brand ${
                             isActive(child.href) ? "text-brand" : "text-ink"
@@ -196,7 +198,7 @@ export function SiteHeader() {
                             aria-hidden
                             className="font-mono text-[11px] text-muted/40 transition-all duration-200 group-hover/dd:translate-x-0.5 group-hover/dd:text-brand"
                           >
-                            →
+                            {child.external ? "↗" : "→"}
                           </span>
                         </Link>
                       ))}
@@ -291,11 +293,18 @@ export function SiteHeader() {
                       <Link
                         key={child.href}
                         href={child.href}
+                        target={child.external ? "_blank" : undefined}
+                        rel={child.external ? "noopener noreferrer" : undefined}
                         onClick={close}
                         className="flex items-center gap-2.5 py-1.5 text-[14px] font-semibold text-white/70"
                       >
                         <span aria-hidden className="h-px w-3.5 bg-brand" />
                         {child.label}
+                        {child.external && (
+                          <span aria-hidden className="font-mono text-[11px] text-white/35">
+                            ↗
+                          </span>
+                        )}
                       </Link>
                     ))}
                   </div>
