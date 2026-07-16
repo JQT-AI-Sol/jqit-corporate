@@ -29,18 +29,21 @@ export default function ContactPage() {
   return (
     <>
       <PageHeader title="お問い合わせ" en="Contact" />
-      <section className="bg-paper pb-24 pt-16 min-[720px]:pt-20">
+      <section className="bg-paper pb-20 pt-12 min-[720px]:pb-24 min-[720px]:pt-20">
         <Container>
-          <div className="grid grid-cols-1 items-start gap-12 min-[1024px]:grid-cols-[1.5fr_1fr] min-[1024px]:gap-16">
+          <div className="grid grid-cols-1 items-start gap-10 min-[1024px]:grid-cols-[1.5fr_1fr] min-[1024px]:gap-16">
             <FadeIn>
-              <p className="mb-9 text-[15px] leading-[2.05] text-body">
-                サービス・採用・協業など、JQITへのお問い合わせは下記フォームよりお願いいたします。
+              <p className="mb-8 text-base leading-[1.9] text-body min-[720px]:mb-9">
+                <span className="inline-block">サービス・採用・協業など、</span>
+                <span className="inline-block">
+                  JQITへのお問い合わせは下記フォームよりお願いいたします。
+                </span>
                 <span className="text-brand">*</span>{" "}
                 は必須項目です。担当者より2〜3営業日以内にご連絡いたします。
               </p>
               <StaticContactForm />
             </FadeIn>
-            <FadeIn className="border border-line bg-cream px-8 py-9">
+            <FadeIn className="border border-line bg-cream px-5 py-7 min-[600px]:px-8 min-[600px]:py-9">
               <Kicker className="mb-6">Direct</Kicker>
               {directInfos.map((info) => (
                 <div key={info.label} className="border-b border-line py-4">

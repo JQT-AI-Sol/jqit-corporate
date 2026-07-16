@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { submitContact } from "@/app/contact/actions";
 import {
   contactCategories,
   type ContactField,
   initialContactState,
 } from "@/lib/contact";
+import { clearContactDraft, connectContactDraft } from "@/lib/contact-draft";
 
 const fieldCls =
-  "w-full rounded-card border border-[#d8d5d0] bg-white px-3.5 py-[13px] text-[15px] text-ink outline-none transition-colors placeholder:text-[#b3b0aa] focus:border-brand aria-[invalid=true]:border-brand";
+  "min-h-12 w-full rounded-card border border-[#d8d5d0] bg-white px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-[#8a8781] focus:border-brand aria-[invalid=true]:border-brand";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -26,6 +27,16 @@ export function ContactForm() {
     submitContact,
     initialContactState,
   );
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (!formRef.current) return;
+    return connectContactDraft(formRef.current);
+  }, []);
+
+  useEffect(() => {
+    if (state.status === "success") clearContactDraft();
+  }, [state.status]);
 
   const errorId = (field: ContactField) => `${field}-error`;
   const a11y = (field: ContactField) =>
@@ -51,7 +62,12 @@ export function ContactForm() {
   }
 
   return (
-    <form action={formAction} noValidate className="flex flex-col gap-6">
+    <form
+      ref={formRef}
+      action={formAction}
+      noValidate
+      className="flex flex-col gap-6"
+    >
       {state.formError && (
         <p
           role="alert"
@@ -63,7 +79,7 @@ export function ContactForm() {
 
       <div className="grid grid-cols-1 gap-5 min-[600px]:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <label htmlFor="name" className="text-[13px] font-semibold text-ink">
+          <label htmlFor="name" className="text-sm font-semibold leading-6 text-ink">
             お名前 <span className="text-brand">*</span>
           </label>
           <input
@@ -77,7 +93,7 @@ export function ContactForm() {
           <FieldError id={errorId("name")} message={state.fieldErrors.name} />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="company" className="text-[13px] font-semibold text-ink">
+          <label htmlFor="company" className="text-sm font-semibold leading-6 text-ink">
             会社名
           </label>
           <input
@@ -92,7 +108,7 @@ export function ContactForm() {
 
       <div className="grid grid-cols-1 gap-5 min-[600px]:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <label htmlFor="email" className="text-[13px] font-semibold text-ink">
+          <label htmlFor="email" className="text-sm font-semibold leading-6 text-ink">
             メールアドレス <span className="text-brand">*</span>
           </label>
           <input
@@ -106,7 +122,7 @@ export function ContactForm() {
           <FieldError id={errorId("email")} message={state.fieldErrors.email} />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="tel" className="text-[13px] font-semibold text-ink">
+          <label htmlFor="tel" className="text-sm font-semibold leading-6 text-ink">
             電話番号
           </label>
           <input
@@ -120,7 +136,7 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="category" className="text-[13px] font-semibold text-ink">
+        <label htmlFor="category" className="text-sm font-semibold leading-6 text-ink">
           お問い合わせ種別 <span className="text-brand">*</span>
         </label>
         <select
@@ -143,7 +159,7 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="message" className="text-[13px] font-semibold text-ink">
+        <label htmlFor="message" className="text-sm font-semibold leading-6 text-ink">
           お問い合わせ内容 <span className="text-brand">*</span>
         </label>
         <textarea
@@ -158,16 +174,18 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="flex cursor-pointer items-start gap-2.5 text-[13px] leading-[1.7] text-body">
+        <label className="flex min-h-11 cursor-pointer items-start gap-3 py-2 text-sm leading-6 text-body">
           <input
             type="checkbox"
             name="privacy"
-            className="mt-[3px] h-4 w-4 accent-brand"
+            className="mt-0.5 h-5 w-5 shrink-0 accent-brand"
             {...a11y("privacy")}
           />
           <span>
             <Link
               href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-brand underline underline-offset-2"
             >
               プライバシーポリシー
@@ -182,7 +200,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={isPending}
-          className="inline-flex cursor-pointer items-center gap-2.5 rounded-card bg-brand px-9 py-[15px] text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-wait disabled:opacity-60"
+          className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-card bg-brand px-9 py-[15px] text-base font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-wait disabled:opacity-60 min-[600px]:w-auto"
         >
           {isPending ? "送信中…" : "送信する"}
           <span aria-hidden className="font-mono">

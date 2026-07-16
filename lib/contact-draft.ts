@@ -98,8 +98,9 @@ export function connectContactDraft(form: HTMLFormElement): () => void {
   };
 }
 
-export function clearContactDraft(): void {
-  const storage = getStorage();
+export function clearContactDraft(
+  storage: Pick<Storage, "removeItem"> | null = getStorage(),
+): void {
   if (!storage) return;
 
   try {

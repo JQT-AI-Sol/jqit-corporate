@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { clearContactDraft, connectContactDraft } from "@/lib/contact-draft";
 import { siteConfig } from "@/lib/site-config";
 
 /**
@@ -41,7 +42,7 @@ const labels: Record<Exclude<Field, "privacy">, string> = {
 };
 
 const fieldCls =
-  "w-full rounded-card border border-[#d8d5d0] bg-white px-3.5 py-[13px] text-[15px] text-ink outline-none transition-colors placeholder:text-[#b3b0aa] focus:border-brand aria-[invalid=true]:border-brand";
+  "min-h-12 w-full rounded-card border border-[#d8d5d0] bg-white px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-[#8a8781] focus:border-brand aria-[invalid=true]:border-brand";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -83,6 +84,16 @@ export function StaticContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<Field, string>>>({});
   const [formError, setFormError] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (!formRef.current) return;
+    return connectContactDraft(formRef.current);
+  }, []);
+
+  useEffect(() => {
+    if (status === "success") clearContactDraft();
+  }, [status]);
 
   const errorId = (field: Field) => `${field}-error`;
   const a11y = (field: Field) =>
@@ -153,7 +164,12 @@ export function StaticContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      noValidate
+      className="flex flex-col gap-6"
+    >
       {formError && (
         <p
           role="alert"
@@ -165,7 +181,7 @@ export function StaticContactForm() {
 
       <div className="grid grid-cols-1 gap-5 min-[600px]:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <label htmlFor="your-name" className="text-[13px] font-semibold text-ink">
+          <label htmlFor="your-name" className="text-sm font-semibold leading-6 text-ink">
             お名前 <span className="text-brand">*</span>
           </label>
           <input
@@ -179,7 +195,7 @@ export function StaticContactForm() {
           <FieldError id={errorId("your-name")} message={fieldErrors["your-name"]} />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="your-name-kana" className="text-[13px] font-semibold text-ink">
+          <label htmlFor="your-name-kana" className="text-sm font-semibold leading-6 text-ink">
             フリガナ <span className="text-brand">*</span>
           </label>
           <input
@@ -201,7 +217,7 @@ export function StaticContactForm() {
         <div className="flex flex-col gap-2">
           <label
             htmlFor="your-name-company"
-            className="text-[13px] font-semibold text-ink"
+            className="text-sm font-semibold leading-6 text-ink"
           >
             会社名 <span className="text-brand">*</span>
           </label>
@@ -219,7 +235,7 @@ export function StaticContactForm() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="department" className="text-[13px] font-semibold text-ink">
+          <label htmlFor="department" className="text-sm font-semibold leading-6 text-ink">
             部署 <span className="text-brand">*</span>
           </label>
           <input
@@ -236,7 +252,7 @@ export function StaticContactForm() {
 
       <div className="grid grid-cols-1 gap-5 min-[600px]:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <label htmlFor="your-email" className="text-[13px] font-semibold text-ink">
+          <label htmlFor="your-email" className="text-sm font-semibold leading-6 text-ink">
             メールアドレス <span className="text-brand">*</span>
           </label>
           <input
@@ -250,7 +266,7 @@ export function StaticContactForm() {
           <FieldError id={errorId("your-email")} message={fieldErrors["your-email"]} />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="your-telephone" className="text-[13px] font-semibold text-ink">
+          <label htmlFor="your-telephone" className="text-sm font-semibold leading-6 text-ink">
             電話番号 <span className="text-brand">*</span>
           </label>
           <input
@@ -269,7 +285,7 @@ export function StaticContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="category" className="text-[13px] font-semibold text-ink">
+        <label htmlFor="category" className="text-sm font-semibold leading-6 text-ink">
           お問い合わせ種別 <span className="text-brand">*</span>
         </label>
         <select
@@ -292,7 +308,7 @@ export function StaticContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="your-message" className="text-[13px] font-semibold text-ink">
+        <label htmlFor="your-message" className="text-sm font-semibold leading-6 text-ink">
           お問い合わせ内容 <span className="text-brand">*</span>
         </label>
         <textarea
@@ -307,16 +323,18 @@ export function StaticContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="flex cursor-pointer items-start gap-2.5 text-[13px] leading-[1.7] text-body">
+        <label className="flex min-h-11 cursor-pointer items-start gap-3 py-2 text-sm leading-6 text-body">
           <input
             type="checkbox"
             name="privacy"
-            className="mt-[3px] h-4 w-4 accent-brand"
+            className="mt-0.5 h-5 w-5 shrink-0 accent-brand"
             {...a11y("privacy")}
           />
           <span>
             <Link
               href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-brand underline underline-offset-2"
             >
               プライバシーポリシー
@@ -331,7 +349,7 @@ export function StaticContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex cursor-pointer items-center gap-2.5 rounded-card bg-brand px-9 py-[15px] text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-wait disabled:opacity-60"
+          className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-card bg-brand px-9 py-[15px] text-base font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-wait disabled:opacity-60 min-[600px]:w-auto"
         >
           {status === "sending" ? "送信中…" : "送信する"}
           <span aria-hidden className="font-mono">
