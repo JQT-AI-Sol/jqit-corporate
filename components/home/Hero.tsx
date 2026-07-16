@@ -49,15 +49,8 @@ export function Hero() {
             <p className="hero-rise mt-7 max-w-[470px] text-[16px] leading-[2.05] text-body [animation-delay:400ms]">
               私たちは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。ITとAI、ふたつのソリューションで企業の挑戦を支えます。
             </p>
-            <div className="hero-rise mt-10 flex flex-wrap gap-4 [animation-delay:500ms]">
+            <div className="hero-rise mt-10 [animation-delay:500ms]">
               <Button href="/#business">事業を見る</Button>
-              <Button
-                href="/contact"
-                variant="outline"
-                className="bg-white/95 backdrop-blur-sm"
-              >
-                お問い合わせ
-              </Button>
             </div>
           </div>
         </div>

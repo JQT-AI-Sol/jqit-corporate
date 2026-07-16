@@ -202,9 +202,6 @@ export default function AboutPage() {
               <Button href={siteConfig.links.recruit} external>
                 採用情報を見る
               </Button>
-              <Button href="/contact" variant="outline">
-                お問い合わせ
-              </Button>
             </div>
           </FadeIn>
         </Container>

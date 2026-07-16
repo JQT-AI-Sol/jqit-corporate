@@ -140,7 +140,6 @@ export const footerNav: { head: string; links: FooterLink[] }[] = [
       { label: "採用情報", href: siteConfig.links.recruit, external: true },
       { label: "Qiita", href: siteConfig.links.qiita, external: true },
       { label: "note", href: siteConfig.links.note, external: true },
-      { label: "お問い合わせ", href: "/contact" },
     ],
   },
 ];

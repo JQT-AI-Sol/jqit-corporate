@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { NewsListFiltered } from "@/components/news/NewsListFiltered";
 import { Container } from "@/components/ui/Container";
@@ -29,23 +28,6 @@ export default async function NewsListPage() {
               現在、公開中のニュースはありません。
             </p>
           )}
-          <FadeIn className="mt-10 flex flex-wrap items-center justify-between gap-5 border border-line bg-cream px-7 py-6">
-            <p className="text-sm leading-relaxed text-body">
-              ニュース掲載内容に関するお問い合わせはこちらから。
-            </p>
-            <Link
-              href="/contact"
-              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
-            >
-              お問い合わせ
-              <span
-                aria-hidden
-                className="transition-transform duration-300 group-hover:translate-x-1.5"
-              >
-                →
-              </span>
-            </Link>
-          </FadeIn>
         </Container>
       </section>
     </>

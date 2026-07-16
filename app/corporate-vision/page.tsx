@@ -220,9 +220,6 @@ export default function CorporateVisionPage() {
             </h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button href="/about">会社情報を見る</Button>
-              <Button href="/contact" variant="outline">
-                お問い合わせ
-              </Button>
             </div>
           </FadeIn>
         </Container>

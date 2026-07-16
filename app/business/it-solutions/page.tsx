@@ -3,7 +3,6 @@ import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
-import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -341,25 +340,6 @@ export default function ItSolutionsPage() {
         alt="AIデータ可視化を前に分析するメンバー"
       />
 
-      {/* CTA */}
-      <section className="border-t border-line bg-paper py-16 min-[720px]:py-20">
-        <Container className="text-center">
-          <FadeIn>
-            <h2 className="palt text-[26px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[34px]">
-              開発体制のご相談、お気軽に。
-            </h2>
-            <p className="mt-4 text-[14px] leading-[1.9] text-muted">
-              一括請負から一部工程のご支援まで、最適な形をご提案します。
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button href="/contact">お問い合わせ</Button>
-              <Button href="/business/ai-solutions" variant="outline">
-                AIソリューション事業を見る
-              </Button>
-            </div>
-          </FadeIn>
-        </Container>
-      </section>
     </>
   );
 }

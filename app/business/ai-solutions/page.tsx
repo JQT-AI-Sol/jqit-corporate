@@ -296,25 +296,6 @@ export default function AiSolutionsPage() {
         alt="自然光の入るオフィスでシステム設計を議論するエンジニア"
       />
 
-      {/* CTA */}
-      <section className="border-t border-line bg-paper py-16 min-[720px]:py-20">
-        <Container className="text-center">
-          <FadeIn>
-            <h2 className="palt text-[26px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[34px]">
-              AI活用のご相談、お気軽に。
-            </h2>
-            <p className="mt-4 text-[14px] leading-[1.9] text-muted">
-              「何から始めるか」の整理から、導入・開発・人材育成まで伴走します。
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button href="/contact">お問い合わせ</Button>
-              <Button href="/business/it-solutions" variant="outline">
-                ITソリューション事業を見る
-              </Button>
-            </div>
-          </FadeIn>
-        </Container>
-      </section>
     </>
   );
 }

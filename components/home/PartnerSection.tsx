@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
@@ -7,7 +6,7 @@ export function PartnerSection() {
   return (
     <section id="partner" className="border-b border-line bg-cream py-16 min-[720px]:py-[72px]">
       <Container>
-        <FadeIn className="flex flex-wrap items-center justify-between gap-10">
+        <FadeIn>
           <div>
             <Kicker className="mb-4">Partner</Kicker>
             <h2 className="palt text-[24px] font-bold leading-[1.45] tracking-[-0.02em] text-ink min-[720px]:text-[30px]">
@@ -18,7 +17,6 @@ export function PartnerSection() {
               SES・受託開発・品質保証の領域で、技術力を高め合える企業様との協業を歓迎します。
             </p>
           </div>
-          <Button href="/contact">協業のご相談</Button>
         </FadeIn>
       </Container>
     </section>
