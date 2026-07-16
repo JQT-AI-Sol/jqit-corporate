@@ -53,37 +53,24 @@ export function ServiceSection() {
             <FadeIn key={service.id}>
               <article className="flex h-full flex-col overflow-hidden border border-line bg-white">
                 {service.id === "nova" ? (
-                  <div className="flex min-h-[220px] items-center bg-[#f4f4f2] p-6 min-[720px]:p-8">
+                  <div className="flex h-[220px] items-center bg-[#f4f4f2] p-6 min-[720px]:h-[280px] min-[720px]:p-8">
                     <Image
                       src="/nova-product.png"
                       alt="NOVA 管理画面 — AIマッチングアシスタントと案件一覧"
                       width={748}
                       height={438}
-                      className="h-auto w-full"
+                      className="h-full w-full object-contain"
                     />
                   </div>
                 ) : (
-                  <div className="relative flex min-h-[220px] items-end overflow-hidden bg-ink p-7 min-[720px]:p-8">
-                    <p
-                      aria-hidden
-                      className="font-anton absolute -right-1 -top-3 text-[132px] leading-none text-white/[0.05]"
-                    >
-                      AI
-                    </p>
-                    <div
-                      aria-hidden
-                      className="absolute inset-y-0 right-[18%] w-px bg-white/10"
+                  <div className="h-[220px] overflow-hidden bg-[#f4f4f2] min-[720px]:h-[280px]">
+                    <Image
+                      src="/business-ai.png"
+                      alt="AI導入について画面を見ながら相談する担当者"
+                      width={1536}
+                      height={1365}
+                      className="h-full w-full object-cover object-center"
                     />
-                    <div className="relative">
-                      <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-brand">
-                        JQIT AI AUTOMATION
-                      </p>
-                      <p className="palt mt-3 max-w-[360px] text-[24px] font-bold leading-[1.45] text-white min-[720px]:text-[28px]">
-                        転記・確認・通知を、
-                        <br />
-                        AIで減らす。
-                      </p>
-                    </div>
                   </div>
                 )}
 
@@ -109,20 +96,22 @@ export function ServiceSection() {
                       </li>
                     ))}
                   </ul>
-                  <a
-                    href={service.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group mt-8 inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-card bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
-                  >
-                    <span>{service.cta}</span>
-                    <span
-                      aria-hidden
-                      className="font-mono transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  <div className="mt-auto pt-8">
+                    <a
+                      href={service.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-card bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
                     >
-                      ↗
-                    </span>
-                  </a>
+                      <span>{service.cta}</span>
+                      <span
+                        aria-hidden
+                        className="font-mono transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      >
+                        ↗
+                      </span>
+                    </a>
+                  </div>
                 </div>
               </article>
             </FadeIn>

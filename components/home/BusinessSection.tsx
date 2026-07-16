@@ -11,7 +11,7 @@ const businesses = [
     en: "IT Solutions",
     title: "ITソリューション事業",
     body: "システム構築の要件定義から運用保守まで。受託開発（SI）とSESにより、Web・業務システム開発、インフラ構築、QA・第三者検証をワンストップで提供します。",
-    tags: ["受託開発（SI）", "SES", "インフラ", "QA・第三者検証"],
+    tags: ["開発", "インフラ", "QA"],
     image: "/natural-tech-it.webp",
     alt: "自然光の入るオフィスでシステム設計を議論するエンジニア",
     href: "/business/it-solutions",

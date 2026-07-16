@@ -1,16 +1,32 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { CountUp } from "@/components/ui/CountUp";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHead } from "@/components/ui/SectionHead";
 
-const stats = [
-  { value: "2024", unit: "年", label: "Founded" },
-  { value: "106", unit: "名", label: "Members (2026.4)" },
-  { value: "2", unit: "事業", label: "IT × AI Solutions" },
-  { value: "1,000", unit: "万円", label: "Capital" },
-];
+const trustSignals = [
+  {
+    name: "106名の組織体制",
+    description: "IT・AIの両事業を支える組織",
+    meta: "2026年4月時点",
+  },
+  {
+    name: "ISO/IEC 27001（ISMS）",
+    description: "情報セキュリティ管理体制を構築・運用",
+    image: { src: "/badges/isms-iso27001.png", width: 200, height: 78 },
+  },
+  {
+    name: "DX認定事業者",
+    description: "経営とデジタル変革を一体で推進",
+    image: { src: "/badges/dx-nintei.png", width: 1736, height: 492 },
+  },
+  {
+    name: "ISTQB® Gold パートナー",
+    description: "ソフトウェア品質・テスト分野の専門性",
+    image: { src: "/badges/istqb-gold.png", width: 2063, height: 738 },
+  },
+] as const;
 
 export function AboutSection() {
   return (
@@ -39,19 +55,40 @@ export function AboutSection() {
             </FadeIn>
           </div>
           <FadeIn className="grid grid-cols-2 gap-px border border-line bg-line">
-            {stats.map((s) => (
-              <div key={s.label} className="bg-white px-4 py-6 min-[720px]:px-[26px] min-[720px]:py-[30px]">
-                {/* 数値＋単位は常に同一行（桁数による折り返し不統一を防ぐ） */}
-                <p className="font-en whitespace-nowrap text-[34px] font-semibold leading-none tracking-[-0.02em] text-ink min-[720px]:text-[58px]">
-                  <CountUp value={s.value} />
-                  <span className="ml-1 text-[16px] font-bold text-brand min-[720px]:text-[24px]">
-                    {s.unit}
-                  </span>
-                </p>
-                <p className="mt-4 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted">
-                  {s.label}
-                </p>
-              </div>
+            {trustSignals.map((signal) => (
+              <article
+                key={signal.name}
+                className="flex min-h-[190px] flex-col bg-white px-5 py-6 min-[720px]:min-h-[220px] min-[720px]:px-7 min-[720px]:py-8"
+              >
+                {"image" in signal ? (
+                  <div className="flex h-11 items-center">
+                    <Image
+                      src={signal.image.src}
+                      alt={signal.name}
+                      width={signal.image.width}
+                      height={signal.image.height}
+                      className="max-h-10 w-auto max-w-full object-contain object-left"
+                    />
+                  </div>
+                ) : (
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
+                    Organization
+                  </p>
+                )}
+                <div className="mt-auto pt-6">
+                  <h3 className="palt text-[16px] font-bold leading-[1.55] text-ink min-[720px]:text-[18px]">
+                    {signal.name}
+                  </h3>
+                  <p className="mt-2 text-[12px] leading-[1.8] text-body min-[720px]:text-[13px]">
+                    {signal.description}
+                  </p>
+                  {"meta" in signal && (
+                    <p className="mt-2 font-mono text-[9.5px] tracking-[0.1em] text-muted">
+                      {signal.meta}
+                    </p>
+                  )}
+                </div>
+              </article>
             ))}
           </FadeIn>
         </div>
