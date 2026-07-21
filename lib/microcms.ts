@@ -110,8 +110,26 @@ function isNotFoundError(e: unknown): boolean {
   return e instanceof Error && /\b404\b/.test(e.message);
 }
 
+function optimizeMicroCmsImageUrl(src: string): string {
+  try {
+    const url = new URL(src);
+    const isMicroCmsImage =
+      url.protocol === "https:" && url.hostname === "images.microcms-assets.io";
+    const isAnimationOrVector = /\.(?:gif|svg)$/i.test(url.pathname);
+
+    if (!isMicroCmsImage || isAnimationOrVector) return src;
+
+    url.searchParams.set("fm", "webp");
+    if (!url.searchParams.has("q")) url.searchParams.set("q", "75");
+    if (!url.searchParams.has("w")) url.searchParams.set("w", "1200");
+    return url.toString();
+  } catch {
+    return src;
+  }
+}
+
 /** リッチエディタ由来のHTMLをサーバー側でサニタイズ（CMSアカウント侵害時の多層防御） */
-function sanitizeBody(html: string | undefined): string | undefined {
+export function prepareNewsBodyHtml(html: string | undefined): string | undefined {
   if (!html) return html;
   return sanitizeHtml(html, {
     allowedTags: [...sanitizeHtml.defaults.allowedTags, "img", "figure", "figcaption"],
@@ -127,6 +145,14 @@ function sanitizeBody(html: string | undefined): string | undefined {
         attribs.target === "_blank"
           ? { tagName, attribs: { ...attribs, rel: "noopener noreferrer" } }
           : { tagName, attribs },
+      // microCMS本文の静止画はImage APIで軽量なWebPへ変換する
+      img: (tagName, attribs) => ({
+        tagName,
+        attribs: {
+          ...attribs,
+          ...(attribs.src ? { src: optimizeMicroCmsImageUrl(attribs.src) } : {}),
+        },
+      }),
     },
   });
 }
@@ -182,7 +208,7 @@ function normalize(item: MicroCMSNews): News {
         : bodyImages.length > 0
           ? undefined
           : defaultMedia?.gallery,
-    body: sanitizeBody(rawBody),
+    body: prepareNewsBodyHtml(rawBody),
   };
 }
 
